@@ -1,0 +1,33 @@
+<div
+  #popup
+  class="absolute right-0 z-50 min-w-72 max-w-96 -translate-y-1/4 translate-x-[102%] rounded bg-[#111111] pt-3"
+>
+  <header class="flex items-center justify-between px-4">
+    <div class="flex items-center gap-2">
+      <div class="overflow-hidden rounded-full">
+        <img class="h-8 w-8 min-w-8" src="assets/images/spotify.png" alt="" />
+      </div>
+      <h6 class="text-lg font-semibold text-white">
+        {{ providerAuth()?.source | capitalizeFirstLetter }}
+      </h6>
+    </div>
+    <button (click)="handleClosePopover()">
+      <img class="h-7 w-6 min-w-7" src="assets/images/closeIcon.png" alt="" />
+    </button>
+  </header>
+  <div
+    class="mt-3 flex items-center justify-between bg-[#1D1D1D] px-4 py-0.5 font-medium"
+  >
+    <div class="flex items-center justify-end gap-1.5">
+      <div class="h-2.5 w-2.5 animate-pulse rounded-full bg-[#4CAF50]"></div>
+      <span class="text-[#4CAF50]">Conectado</span>
+    </div>
+  </div>
+  <div class="px-4 py-6">
+    <button
+      class="w-full rounded bg-[#EA3D31] py-2 font-bold text-white shadow-lg hover:brightness-110"
+    >
+      Desconectar
+    </button>
+  </div>
+</div>

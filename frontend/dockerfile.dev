@@ -1,0 +1,18 @@
+
+FROM node:20.12.0
+
+WORKDIR /frontend
+
+RUN npm install -g @angular/cli@17.3.0
+
+COPY package.json package-lock.json ./
+RUN npm ci
+
+COPY . .
+
+USER root
+CMD ["ng", "serve", "--host", "0.0.0.0", "--poll=500", "--port", "4200"]
+
+
+
+

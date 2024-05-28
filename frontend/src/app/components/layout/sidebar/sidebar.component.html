@@ -1,0 +1,18 @@
+<aside [class]="sidebarMenuClass()">
+  <button
+    class="mx-auto mt-10 h-7 w-7 -translate-y-1/2"
+    (click)="toggleSidebar($event)"
+  >
+    <img src="assets/images/menu.png" />
+  </button>
+</aside>
+
+@if (isOpen()) {
+  <div
+    class="absolute inset-0 z-10 block h-screen w-full bg-black bg-opacity-70 2xl:hidden"
+  ></div>
+}
+<aside #menu [class]="sidebarContentClass()">
+  <app-auth />
+  <app-navigation class="h-full grow bg-[#0D0D0D]" />
+</aside>

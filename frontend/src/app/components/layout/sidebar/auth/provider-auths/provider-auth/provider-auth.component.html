@@ -1,0 +1,25 @@
+<div
+  class="provider-auth group relative flex cursor-pointer flex-col justify-center gap-1"
+  [ngClass]="{
+    '!cursor-not-allowed': authenticatedAuth.isAuthenticating
+  }"
+>
+  <div class="relative mx-auto w-max">
+    <div
+      class="h-12 w-12 overflow-hidden rounded-full group-hover:rounded-[20px]"
+    >
+      <img [src]="authenticatedAuth.picture" />
+    </div>
+    <div
+      class="absolute -bottom-0.5 right-0 h-4 w-4 rounded-full border-[3px] border-[#111111]"
+      [ngClass]="{
+        'animate-bounce bg-[#fbc02d]': authenticatedAuth.isAuthenticating,
+        'bg-[#4CAF50]': !authenticatedAuth.isAuthenticating
+      }"
+    ></div>
+  </div>
+
+  <div class="text-center text-sm font-semibold text-white">
+    <h6>{{ authenticatedAuth.label }}</h6>
+  </div>
+</div>

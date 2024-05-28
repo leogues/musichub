@@ -1,0 +1,50 @@
+<div class="flex gap-2.5 text-[#B8B8B8]">
+  <a target="_blank" [href]="link()">
+    <div class="aspect-square min-h-28 xl:min-h-40">
+      <img [src]="picture()" class="h-28 xl:h-40" alt="" />
+    </div>
+  </a>
+
+  <div class="flex grow flex-col gap-2.5">
+    <a target="_blank" [href]="link()" class="w-max">
+      <h2 class="text-3xl font-black leading-6 text-white">
+        {{ title() }}
+      </h2>
+    </a>
+    <a target="_blank" [href]="authorLink()" class="w-max">
+      <span class="text-lg font-bold leading-5">By {{ author() }}</span>
+    </a>
+    <div class="flex items-center gap-1 text-sm font-medium">
+      <a class="w-max" target="_blank" [href]="link()">
+        <span [ngClass]="platformColorClass()">{{
+          platform() | capitalizeFirstLetter
+        }}</span>
+      </a>
+      @if (isPublic()) {
+        <span>•</span>
+        <span>Public</span>
+      }
+    </div>
+    @if (description()) {
+      <div class="hidden w-max gap-3 rounded bg-[#2b2b2b] px-2 py-1 xl:flex">
+        <img src="assets/images/citar.png" class="h-3 w-3 -rotate-180" />
+        <span class="text-nowrap">
+          {{ description()! | truncate: 70 | unescapeString | removeChar: '"' }}
+        </span>
+        <img src="assets/images/citar.png" class="mt-0.5 h-3 w-3" />
+      </div>
+    }
+
+    <div class="flex items-center gap-1 text-sm font-medium">
+      <span>Músicas: {{ tracksCount() }}</span>
+      @if (releaseDate()) {
+        <span>•</span>
+        <span>{{ releaseDate() | date: "dd/MM/yyyy" }}</span>
+      }
+      @if (followersCount()) {
+        <span>•</span>
+        <span>{{ followersCount() }} seguidores</span>
+      }
+    </div>
+  </div>
+</div>

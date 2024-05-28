@@ -1,0 +1,50 @@
+<header
+  class="gap-4 border-y border-[#949494] bg-[#1D1D1D] py-3 pl-3 text-[#e4e4e4]"
+>
+  @for (header of header(); track header.label) {
+    <div
+      class="group flex items-center"
+      [ngClass]="{
+        'justify-center': header.positionCenter,
+        'cursor-pointer': header.canOrder
+      }"
+      (click)="handleSort(header)"
+    >
+      <div class="relative flex items-center gap-1 hover:text-white">
+        @switch (header.labelType) {
+          @case ("text") {
+            <span
+              class="text-base font-bold"
+              [ngClass]="{
+                invisible: header.isHidden,
+                'ml-12': header.contentType === 'title'
+              }"
+              >{{ header.label }}</span
+            >
+          }
+          @case ("image") {
+            <img
+              [src]="header.label"
+              class="h-5 w-5"
+              [ngClass]="{ invisible: header.isHidden }"
+            />
+          }
+        }
+        <div
+          class="absolute right-0 top-1/2 h-3 w-3 -translate-y-1/2 translate-x-[130%]"
+        >
+          <img
+            class="hidden"
+            src="assets/images/arrowTableIcon.png"
+            [ngClass]="{
+              'rotate-180': header.order === 'desc',
+              invisible: header.isHidden,
+              '!block': sortedHeader()?.index === header.index && header.order,
+              'group-hover:block': header.canOrder
+            }"
+          />
+        </div>
+      </div>
+    </div>
+  }
+</header>

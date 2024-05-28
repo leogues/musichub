@@ -1,0 +1,14 @@
+<div class="flex h-screen max-h-dvh text-[#B8B8B8]">
+  <app-sidebar></app-sidebar>
+  <div class="mx-6 mb-4 flex grow flex-col">
+    <div class="flex gap-2">
+      <app-header [title]="title()" />
+      <div class="flex h-full">
+        <button class="mt-10 -translate-y-1/2" (click)="handleRefreshData()">
+          <img class="h-4 w-4" src="assets/images/refresh.png" />
+        </button>
+      </div>
+    </div>
+    <ng-content></ng-content>
+  </div>
+</div>

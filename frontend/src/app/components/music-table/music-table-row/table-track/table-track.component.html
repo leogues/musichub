@@ -1,0 +1,9 @@
+<div class="flex w-full justify-center">
+  <button (click)="togglePreview()">
+    <img
+      class="h-5"
+      [class]="{ 'brightness-50': !track().trackurl }"
+      [src]="isPlaying() ? 'assets/images/pause.png' : 'assets/images/play.png'"
+    />
+  </button>
+</div>

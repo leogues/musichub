@@ -1,0 +1,11 @@
+@if (link()) {
+  <a [routerLink]="link()" class="hover:brightness-125">
+    <ng-content *ngTemplateOutlet="contentTmpl"></ng-content>
+  </a>
+} @else {
+  <ng-content *ngTemplateOutlet="contentTmpl"></ng-content>
+}
+
+<ng-template #contentTmpl>
+  <ng-content></ng-content>
+</ng-template>

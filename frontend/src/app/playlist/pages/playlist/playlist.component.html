@@ -1,0 +1,26 @@
+<app-layout title="Detalhe das playlist" (refreshData)="handleRefreshData()">
+  @if (playlist()) {
+    <app-playlist-detail
+      [playlist]="playlist()!"
+      [playlistTracksCount]="playlistTracksCount()"
+    />
+  }
+
+  <app-music-player [tracks]="playlistTracks()" />
+  <app-data-info
+    [total]="playlistTracksCount()"
+    [filteredCount]="playlistTracksFilteredCount()"
+    [selectedCount]="playlistTracksFilteredSelectedCount()"
+  />
+  <app-selection-filter-toolbar
+    [(textFilter)]="textFilter"
+    [isAllSelected]="isAllSelected()"
+    (toggleAll)="toggleSelectAllFiltered()"
+  />
+
+  <app-playlist-table
+    class="flex min-h-0 grow flex-col"
+    [isLoading]="playlistIsFetching()"
+    [playlistTracks]="playlistTracksFiltered()"
+  />
+</app-layout>

@@ -1,0 +1,25 @@
+<app-layout title="Detalhe do álbum" (refreshData)="handleRefreshData()">
+  @if (album()) {
+    <app-album-detail
+      [album]="album()!"
+      [albumTracksCount]="albumTracksCount()"
+    />
+  }
+  <app-music-player [tracks]="albumTracks()" />
+  <app-data-info
+    [total]="albumTracksCount()"
+    [filteredCount]="albumTracksFilteredCount()"
+    [selectedCount]="albumTracksFilteredSelectedCount()"
+  />
+  <app-selection-filter-toolbar
+    [(textFilter)]="textFilter"
+    [isAllSelected]="isAllSelected()"
+    (toggleAll)="toggleSelectAllFiltered()"
+  />
+
+  <app-album-table
+    class="flex min-h-0 grow flex-col"
+    [isLoading]="albumIsFetching()"
+    [albumTracks]="albumTracksFiltered()"
+  />
+</app-layout>

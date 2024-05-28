@@ -1,0 +1,45 @@
+<div
+  #selectOption
+  class="absolute bottom-0 left-1/2 z-10 flex min-w-64 -translate-x-1/2 translate-y-[105%] flex-col gap-6 rounded bg-[#111111] p-4 font-semibold text-[#E4E4E4] shadow-light-shadow"
+>
+  <header class="flex w-full items-center justify-between px-3">
+    <h4>Plataformas</h4>
+    <div
+      class="relative h-[18px] w-[18px] rounded-[2px] border-2 border-[#B8B8B8]"
+    >
+      <input
+        class="absolute inset-0 h-full w-full cursor-pointer appearance-none bg-transparent accent-[#111111] checked:appearance-auto"
+        type="checkbox"
+        (click)="handleSelectAll()"
+        [checked]="isAllSelected()"
+      />
+    </div>
+  </header>
+  <section class="overflow-hidden rounded-xl">
+    @for (source of sourcesToFilter(); track source.name) {
+      <div class="flex items-center justify-between bg-[#1D1D1D] p-3">
+        <div class="flex items-center gap-2">
+          <div class="flex gap-2">
+            <div class="h-7 w-7 overflow-hidden rounded-full">
+              <img src="assets/images/spotify.png" alt="" />
+            </div>
+          </div>
+          <span class="">{{ source.name | capitalizeFirstLetter }}</span>
+        </div>
+
+        <div>
+          <div
+            class="relative h-[18px] w-[18px] rounded-[2px] border-2 border-[#B8B8B8]"
+          >
+            <input
+              class="absolute inset-0 h-full w-full cursor-pointer appearance-none bg-transparent accent-[#111111] checked:appearance-auto"
+              type="checkbox"
+              [checked]="source.isSelected()"
+              (click)="handleSelect(source)"
+            />
+          </div>
+        </div>
+      </div>
+    }
+  </section>
+</div>

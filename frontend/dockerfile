@@ -1,0 +1,19 @@
+FROM node:20.12.0 AS builder
+
+WORKDIR /frontend
+
+RUN npm install -g @angular/cli@17.3.0
+COPY package.json package-lock.json ./
+RUN npm ci
+
+COPY . .
+RUN ng build --configuration production --progress
+
+FROM nginx:alpine3.19
+
+COPY --from=builder /frontend/dist/frontend/browser /usr/share/nginx/html
+
+
+
+
+

@@ -1,0 +1,19 @@
+<app-layout title="Álbuns" (refreshData)="handleRefreshData()">
+  <app-data-info
+    [total]="meAlbumsCount()"
+    [filteredCount]="meAlbumsFilteredCount()"
+    [selectedCount]="selectedMeAlbumsCount()"
+  />
+  <app-selection-filter-toolbar
+    [(textFilter)]="textFilter"
+    [sourcesToFilter]="meAlbumsSources()"
+    [isAllSelected]="isAllSelected()"
+    (toggleAll)="toggleSelectAllFiltered()"
+    (sourcesSelected)="optionFilter.set($event)"
+  />
+  <app-albums-table
+    class="flex min-h-0 grow flex-col"
+    [albums]="meAlbumsFiltered()"
+    [isLoading]="meAlbums.isFetching()"
+  />
+</app-layout>

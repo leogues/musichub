@@ -1,0 +1,31 @@
+<div>
+  <a [routerLink]="routerLink()">
+    <div
+      routerLinkActive="group bg-gradient-to-r from-[#B5179E] to-[#7209B7] text-white"
+      (click)="handleClick()"
+      class="group flex items-center justify-between rounded-md px-2 py-3.5 hover:bg-gradient-to-r hover:from-[#B5179E] hover:to-[#7209B7] hover:text-white"
+      [ngClass]="{
+        'cursor-not-allowed': isDisabled(),
+        'cursor-pointer': !isDisabled()
+      }"
+    >
+      <div class="flex items-center gap-4">
+        <div>
+          <img
+            [src]="icon()"
+            alt=""
+            routerLinkActive="brightness-0 invert"
+            class="h-[18px] w-[18px] group-hover:brightness-0 group-hover:invert"
+          />
+        </div>
+        <span class="text-base font-semibold">{{ name() }}</span>
+      </div>
+      <div>
+        <img
+          [src]="afterIcon()"
+          routerLinkActive="brightness-0 invert group-hover:brightness-0 group-hover:invert"
+        />
+      </div>
+    </div>
+  </a>
+</div>

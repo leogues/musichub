@@ -1,0 +1,14 @@
+<div class="relative">
+  <div
+    class="flex h-4/5 cursor-pointer items-center border-r border-[#414141] px-6 text-base font-medium text-white"
+    (click)="togglePopup($event)"
+  >
+    <span class="w-max">Plataforma ({{ sourcesSelectedCount() }})</span>
+  </div>
+  @if (isOpenPopup()) {
+    <app-popup-select-option
+      [(isOpen)]="isOpenPopup"
+      [sourcesToFilter]="sourcesToFilter()"
+    />
+  }
+</div>

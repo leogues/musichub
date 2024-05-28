@@ -1,0 +1,39 @@
+services:
+  backend:
+    container_name: backend
+    build: ./backend
+    env_file:
+      - backend/.env
+    depends_on:
+      db:
+        condition: service_healthy
+  frontend: 
+    container_name: frontend
+    build: ./frontend
+  db:
+    container_name: postgres
+    image: postgres
+    environment:
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: root
+      POSTGRES_DB: MusicHub
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U root -d MusicHub"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+  proxy:
+    container_name: proxy
+    image: nginx:alpine
+    volumes:
+      - type: bind
+        source: ./proxy/nginx.conf
+        target: /etc/nginx/conf.d/default.conf
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+      - frontend
+volumes:
+  angular-dist:
+    

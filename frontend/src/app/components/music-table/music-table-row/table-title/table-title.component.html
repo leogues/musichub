@@ -1,0 +1,36 @@
+<div class="flex items-center gap-3">
+  @if (data().link) {
+    <a [href]="data().link" target="_blank">
+      <div class="h-9 w-9 min-w-9 overflow-hidden rounded-full">
+        <img class="h-9 w-9" [src]="data().imageurl" />
+      </div>
+    </a>
+  } @else {
+    <div class="h-9 w-9 min-w-9 overflow-hidden rounded-full">
+      <img class="h-9 w-9" [src]="data().imageurl" />
+    </div>
+  }
+  <div class="flex min-w-0 flex-col justify-center gap-1">
+    @if (data().link) {
+      <a [href]="data().link" target="_blank" class="leading-none">
+        <span
+          class="block truncate text-base font-semibold leading-tight text-white"
+          >{{ data().title }}</span
+        >
+      </a>
+    } @else {
+      <span
+        class="block truncate text-base font-semibold leading-none text-white"
+        >{{ data().title }}</span
+      >
+    }
+
+    @if (data().artistlink) {
+      <a [href]="data().artistlink" target="_blank" class="leading-none">
+        <span class="text-sm leading-none">{{ data().artist }}</span>
+      </a>
+    } @else {
+      <span class="text-sm leading-none">{{ data().artist }}</span>
+    }
+  </div>
+</div>

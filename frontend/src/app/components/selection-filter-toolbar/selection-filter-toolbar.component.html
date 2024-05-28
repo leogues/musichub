@@ -1,0 +1,15 @@
+<div class="mt-4 flex items-center justify-between">
+  <app-toolbar
+    [isAllSelected]="isAllSelected()"
+    (toggleAll)="toggleAllSelected()"
+  />
+  <div class="flex items-center gap-2">
+    @if (sourcesToFilter().length) {
+      <app-option-filter
+        [sourcesToFilter]="sourcesToFilter()"
+        (sourcesSelectedOutput)="sourcesSelected.emit($event)"
+      />
+    }
+    <app-text-filter [(filterText)]="textFilter" />
+  </div>
+</div>

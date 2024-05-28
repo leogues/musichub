@@ -1,0 +1,53 @@
+<div
+  #popup
+  class="absolute right-0 top-[10%] z-10 flex max-h-80 min-h-72 translate-x-[calc(100%+16px)] flex-col bg-[#111111] p-2"
+>
+  <header class="flex min-w-0 items-center gap-1 text-white">
+    <span
+      class="mr-1 whitespace-nowrap border-r border-[#414141] px-2 text-sm font-bold"
+      >Conectar serviços</span
+    >
+    <div
+      class="flex w-40 items-center gap-2 rounded bg-[#414141] bg-opacity-65 p-1"
+    >
+      <div class="w-4 min-w-4 p-0.5">
+        <img src="assets/images/search.png" alt="" class="h-3 w-3" />
+      </div>
+      <div class="min-w-0 grow">
+        <input
+          class="max-w-full bg-transparent outline-none placeholder:text-[#B8B8B8]"
+          placeholder="Pesquisar"
+          [(ngModel)]="textFilter"
+        />
+      </div>
+    </div>
+    <button class="h-6 w-6" (click)="handleClosePopover()">
+      <img src="assets/images/closeIcon.png" />
+    </button>
+  </header>
+  <div class="mx-auto mt-2 h-[1px] w-[95%] bg-[#414141]"></div>
+  <div
+    class="hidden-scroll mt-2 grid grow grid-cols-4 grid-rows-[max-content] gap-3 overflow-auto p-2"
+  >
+    @for (
+      unauthenticatedProviderAuth of unauthenticatedProviderAuthsFiltered();
+      track unauthenticatedProviderAuth.source
+    ) {
+      <button
+        (click)="handleOpenAuthPopup(unauthenticatedProviderAuth)"
+        class="rounded-lg bg-[#1D1D1D] p-2 hover:brightness-125"
+      >
+        <div
+          class="flex flex-col items-center gap-2 font-medium text-[#B8B8B8]"
+        >
+          <div class="h-12 w-12 overflow-hidden rounded-full">
+            <img [src]="unauthenticatedProviderAuth.picture" />
+          </div>
+          <div>
+            <h6>{{ unauthenticatedProviderAuth.label }}</h6>
+          </div>
+        </div>
+      </button>
+    }
+  </div>
+</div>

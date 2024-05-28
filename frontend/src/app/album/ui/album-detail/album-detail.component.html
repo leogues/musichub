@@ -1,0 +1,10 @@
+<app-detail
+  [title]="album().title"
+  [link]="album().link"
+  [picture]="album().picture"
+  [author]="album().artist.name"
+  [authorLink]="album().artist.link"
+  [platform]="album().platform"
+  [tracksCount]="albumTracksCount()"
+  [releaseDate]="album().release_date"
+/>

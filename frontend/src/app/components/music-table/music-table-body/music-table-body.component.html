@@ -1,0 +1,23 @@
+<div class="flex h-full flex-col overflow-y-auto overflow-x-hidden">
+  @if (isLoading()) {
+    <div class="flex h-[60px] justify-center gap-2 py-2.5">
+      <div>
+        <img src="assets/images/watch.png" alt="" />
+      </div>
+      <span>Carregando dados...</span>
+    </div>
+  } @else {
+    <cdk-virtual-scroll-viewport
+      itemSize="60"
+      class="hidden-scroll h-full overflow-hidden"
+    >
+      <app-music-table-row
+        *cdkVirtualFor="
+          let dataRow of data() | orderColumn: columnWillOrdered();
+          trackBy: trackByFn
+        "
+        [data]="dataRow"
+      />
+    </cdk-virtual-scroll-viewport>
+  }
+</div>

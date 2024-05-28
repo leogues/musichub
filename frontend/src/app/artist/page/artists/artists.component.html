@@ -1,0 +1,19 @@
+<app-layout title="Artista" (refreshData)="handleRefreshData()">
+  <app-data-info
+    [total]="meArtistsCount()"
+    [filteredCount]="meArtistsFilteredCount()"
+    [selectedCount]="selectedMeArtistsCount()"
+  />
+  <app-selection-filter-toolbar
+    [(textFilter)]="textFilter"
+    [sourcesToFilter]="meArtistsSources()"
+    [isAllSelected]="isAllSelected()"
+    (toggleAll)="toggleSelectAllFiltered()"
+    (sourcesSelected)="optionFilter.set($event)"
+  />
+  <app-artists-table
+    class="flex min-h-0 grow flex-col"
+    [artists]="meArtistsFiltered()"
+    [isLoading]="meArtists.isFetching()"
+  />
+</app-layout>

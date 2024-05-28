@@ -1,0 +1,19 @@
+<app-layout title="Playlists" (refreshData)="handleRefreshData()">
+  <app-data-info
+    [total]="mePlaylistsCount()"
+    [filteredCount]="mePlaylistsFilteredCount()"
+    [selectedCount]="selectedMePlaylistsCount()"
+  />
+  <app-selection-filter-toolbar
+    [(textFilter)]="textFilter"
+    [sourcesToFilter]="mePlaylistsSources()"
+    [isAllSelected]="isAllSelected()"
+    (toggleAll)="toggleSelectAllFiltered()"
+    (sourcesSelected)="optionFilter.set($event)"
+  />
+  <app-playlists-table
+    class="flex min-h-0 grow flex-col"
+    [playlists]="mePlaylistsFiltered()"
+    [isLoading]="mePlaylists.isFetching()"
+  />
+</app-layout>

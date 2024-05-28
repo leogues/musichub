@@ -1,0 +1,20 @@
+<app-layout title="Músicas" (refreshData)="handleRefreshData()">
+  <app-music-player [tracks]="meTracksData()" />
+  <app-data-info
+    [total]="meTracksCount()"
+    [filteredCount]="meTracksFilteredCount()"
+    [selectedCount]="meTracksFilteredSelectedCount()"
+  />
+  <app-selection-filter-toolbar
+    [(textFilter)]="textFilter"
+    [sourcesToFilter]="meTracksSources()"
+    [isAllSelected]="isAllSelected()"
+    (toggleAll)="toggleSelectAllFiltered()"
+    (sourcesSelected)="optionFilter.set($event)"
+  />
+  <app-track-table
+    class="flex min-h-0 grow flex-col"
+    [isLoading]="meTracks.isFetching()"
+    [tracks]="meTracksFiltered()"
+  />
+</app-layout>

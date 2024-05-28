@@ -1,0 +1,14 @@
+<div class="mt-2.5 flex min-h-0 grow flex-col">
+  <div
+    [attr.aria-colcount]="colCount()"
+    class="flex min-h-0 w-full grow flex-col"
+  >
+    <app-music-table-header [header]="header()" (sort)="handleSort($event)" />
+    <app-music-table-body
+      [columnWillOrdered]="columnWillOrdered()"
+      class="flex min-h-0 grow flex-col"
+      [isLoading]="isLoading()"
+      [data]="data()"
+    />
+  </div>
+</div>

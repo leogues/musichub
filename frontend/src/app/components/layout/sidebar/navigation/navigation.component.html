@@ -1,0 +1,62 @@
+<div class="thin-scrollbar max-h-full min-h-0 overflow-y-auto px-3 py-2">
+  <app-profile />
+  <section class="mr-2">
+    <header class="flex flex-col gap-2 px-0.5">
+      <h3 class="text-lg font-semibold tracking-wider">Ferramentas</h3>
+      <div
+        class="h-0.5 w-11/12 rounded-full bg-gradient-to-r from-[#B5179E] to-[#7209B7]"
+      ></div>
+    </header>
+    <div class="mt-8 flex flex-col gap-1">
+      <app-navigation-item
+        icon="assets/images/transferIcon.png"
+        routeName="Transferir"
+        [isDisabled]="true"
+      />
+      <app-navigation-item
+        icon="assets/images/syncIcon.png"
+        routeName="Sincronizar"
+        [isDisabled]="true"
+      />
+      <app-navigation-item
+        icon="assets/images/shareIcon.png"
+        routeName="Compartilhar"
+        [isDisabled]="true"
+      />
+    </div>
+  </section>
+  <section class="mr-2 mt-10">
+    <header class="flex flex-col gap-2 px-0.5">
+      <h3 class="text-lg font-semibold tracking-wider">Sua Biblioteca</h3>
+      <div
+        class="h-0.5 w-11/12 rounded-full bg-gradient-to-r from-[#B5179E] to-[#7209B7]"
+      ></div>
+    </header>
+    <div class="mt-8 flex flex-col gap-1">
+      <app-navigation-item
+        icon="assets/images/playlistIcon.png"
+        routeName="Playlist"
+        routerLink="/playlist"
+        afterIcon="assets/images/arrowIcon.png"
+      />
+      <app-navigation-item
+        icon="assets/images/albumIcon.png"
+        routeName="Álbuns"
+        routerLink="/album"
+        afterIcon="assets/images/arrowIcon.png"
+      />
+      <app-navigation-item
+        icon="assets/images/artistIcon.png"
+        routeName="Artistas"
+        routerLink="/artist"
+        afterIcon="assets/images/arrowIcon.png"
+      />
+      <app-navigation-item
+        icon="assets/images/trackIcon.png"
+        routeName="Músicas"
+        routerLink="/track"
+        afterIcon="assets/images/arrowIcon.png"
+      />
+    </div>
+  </section>
+</div>

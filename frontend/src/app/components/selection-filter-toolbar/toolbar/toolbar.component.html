@@ -1,0 +1,22 @@
+<div class="flex items-center gap-2 pl-3">
+  <div
+    class="group relative flex h-[38px] w-[38px] cursor-pointer items-center justify-center rounded-full transition-all duration-300 hover:bg-[#B8B8B8] hover:bg-opacity-10"
+    (click)="toggleAllSelected()"
+  >
+    <div
+      class="relative h-[18px] w-[18px] rounded-[2px] border-2 border-[#B8B8B8]"
+    >
+      <input
+        class="absolute inset-0 h-full w-full cursor-pointer appearance-none bg-transparent accent-[#111111] checked:appearance-auto"
+        type="checkbox"
+        [checked]="isAllSelected()"
+      />
+    </div>
+  </div>
+
+  <label
+    class="hidden border-l border-[#414141] px-2 text-base font-medium text-white md:block"
+  >
+    Selecione os itens para começar e mostrar mais recursos
+  </label>
+</div>

@@ -1,0 +1,14 @@
+<div
+  class="group relative flex h-[38px] cursor-pointer items-center justify-center rounded-full transition-all duration-300 hover:bg-[#B8B8B8] hover:bg-opacity-10"
+  (click)="toggleSelect($event)"
+>
+  <div
+    class="pointer-events-none relative h-[18px] w-[18px] rounded-[2px] border-2 border-[#B8B8B8] group-hover:border-[#e0e0e0]"
+  >
+    <input
+      class="pointer-events-none absolute inset-0 h-full w-full cursor-pointer appearance-none bg-transparent accent-[#1D1D1D] checked:appearance-auto"
+      type="checkbox"
+      [checked]="content().isSelected()"
+    />
+  </div>
+</div>

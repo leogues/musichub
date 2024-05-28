@@ -1,0 +1,31 @@
+<app-link-container [link]="data().link">
+  <div
+    class="table-row h-[60px] items-center gap-4 border-b-4 border-[#111111] bg-[#1D1D1D] pl-3 text-sm"
+  >
+    @for (dataItem of data().content; track data().id + dataItem.type) {
+      @switch (dataItem.type) {
+        @case ("select") {
+          <app-table-select [content]="dataItem" />
+        }
+        @case ("index") {
+          <app-table-index [content]="dataItem" />
+        }
+        @case ("title") {
+          <app-table-title [data]="dataItem" />
+        }
+        @case ("text") {
+          <app-table-text [data]="dataItem" />
+        }
+        @case ("track") {
+          <app-table-track [track]="dataItem" />
+        }
+        @case ("duration") {
+          <app-table-duration [data]="dataItem" />
+        }
+        @case ("date") {
+          <app-table-date [data]="dataItem" />
+        }
+      }
+    }
+  </div>
+</app-link-container>

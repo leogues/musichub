@@ -1,0 +1,17 @@
+<div class="w-full max-w-full">
+  @if (data().link) {
+    <a target="_blank" href="{{ data().link }}">
+      <span
+        class="block max-h-10 overflow-hidden truncate"
+        ngClass="{{ data().class }}"
+        >{{ data().text | capitalizeFirstLetter }}</span
+      >
+    </a>
+  } @else {
+    <span
+      class="block max-h-10 overflow-hidden truncate"
+      ngClass="{{ data().class }}"
+      >{{ data().text | capitalizeFirstLetter }}</span
+    >
+  }
+</div>

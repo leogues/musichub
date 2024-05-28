@@ -1,0 +1,9 @@
+<div class="relative h-full">
+  <app-provider-auths [(isOpenPopover)]="isPopoverOpen"></app-provider-auths>
+  @if (isPopoverOpen()) {
+    <app-unauthenticated-auths-popover
+      [(isOpen)]="isPopoverOpen"
+      (openAuthPopup)="openAuthPopup($event)"
+    ></app-unauthenticated-auths-popover>
+  }
+</div>
