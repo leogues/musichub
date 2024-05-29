@@ -2,7 +2,16 @@ import { AlbumService } from "app/album/album.service";
 import { AlbumDetailComponent } from "app/album/ui/album-detail/album-detail.component";
 import { AlbumTableComponent } from "app/album/ui/album-table/album-table.component";
 
-import { Component, computed, inject, input, signal } from "@angular/core";
+import {
+  Component,
+  Input,
+  computed,
+  inject,
+  input,
+  model,
+  output,
+  signal,
+} from "@angular/core";
 import { DataInfoComponent } from "@components/data-info/data-info.component";
 import { LayoutComponent } from "@components/layout/layout.component";
 import { MusicPlayerComponent } from "@components/music-player/music-player.component";
