@@ -18,10 +18,11 @@ jobs:
           password: ${{ secrets.DOCKER_PASSWORD }}
 
       - name: Build and push Docker image
-        uses: docker/build-push-action@v5
+        uses: docker/build-push-action@v6
         with:
           context: ./frontend
           push: true
-          tags: latest, leogues/music-hub-backend:${{ github.run_number }}
+          image: leogues/music-hub-frontend
+          tags: latest, ${{ github.run_number }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
