@@ -1,4 +1,4 @@
-name: Deploy Backend to ECS
+name: Deploy Frontend to ECS
 
 on:
   push:
@@ -28,5 +28,4 @@ jobs:
         with:
           context: ./frontend
           push: true
-          tags: ${{ steps.meta.outputs.tags }}
-          labels: ${{ steps.meta.outputs.labels }}
+          tags: latest, ${{ github.repository }}:${{ github.run_number }}
