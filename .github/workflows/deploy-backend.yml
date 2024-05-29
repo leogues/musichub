@@ -28,4 +28,4 @@ jobs:
         with:
           context: ./backend
           push: true
-          tags: latest, leogues/musichub:${{ github.run_number }}
+          tags: latest, leogues/music-hub-backend:${{ github.run_number }}
