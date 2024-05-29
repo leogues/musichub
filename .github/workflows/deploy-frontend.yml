@@ -20,7 +20,7 @@ jobs:
       - name: Build and push Docker image
         uses: docker/build-push-action@v5
         with:
-          context: ./frontend
+          context: '{{defaultContext}}:frontend'
           push: true
           tags: leogues/music-hub-frontend:latest, leogues/music-hub-frontend:${{ github.run_number }}
           # cache-from: type=gha

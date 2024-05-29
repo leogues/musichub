@@ -20,6 +20,6 @@ jobs:
       - name: Build and push Docker image
         uses: docker/build-push-action@v5
         with:
-          context: ./backend
+          context: '{{defaultContext}}:backend'
           push: true
           tags: leogues/music-hub-backend:latest, leogues/music-hub-backend:${{ github.run_number }}
