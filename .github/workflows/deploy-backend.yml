@@ -23,3 +23,5 @@ jobs:
           context: '{{defaultContext}}:backend'
           push: true
           tags: leogues/music-hub-backend:latest, leogues/music-hub-backend:${{ github.run_number }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
