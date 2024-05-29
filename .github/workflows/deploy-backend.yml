@@ -2,10 +2,9 @@ name: Deploy Backend to ECS
 
 on:
   push:
+    branches: ['deploy-to-ecs']
     paths:
       - 'backend/**'
-    branches:
-      - deploy-to-ecs
 
 jobs:
   build:
@@ -16,7 +15,7 @@ jobs:
 
       - name: Extract metadata (tags, labels) for Docker
         id: meta
-        uses: docker/metadata-action@v3
+        uses: docker/metadata-action@98669ae865ea3cffbcbaa878cf57c20bbf1c6c38
         with:
           images: musichub/backend
 
