@@ -1,5 +1,6 @@
 <app-layout title="Playlists" (refreshData)="handleRefreshData()">
   <app-data-info
+    [isLoading]="mePlaylists.isFetching()"
     [total]="mePlaylistsCount()"
     [filteredCount]="mePlaylistsFilteredCount()"
     [selectedCount]="selectedMePlaylistsCount()"

@@ -1,17 +1,18 @@
 <app-layout title="Detalhe das playlist" (refreshData)="handleRefreshData()">
-  @if (playlist()) {
+  @if (playlistData()) {
     <app-playlist-detail
-      [playlist]="playlist()!"
+      [playlist]="playlistData()!"
       [playlistTracksCount]="playlistTracksCount()"
     />
   }
-
   <app-music-player [tracks]="playlistTracks()" />
   <app-data-info
+    [isLoading]="playlist.isFetching()"
     [total]="playlistTracksCount()"
     [filteredCount]="playlistTracksFilteredCount()"
     [selectedCount]="playlistTracksFilteredSelectedCount()"
   />
+
   <app-selection-filter-toolbar
     [(textFilter)]="textFilter"
     [isAllSelected]="isAllSelected()"
@@ -20,7 +21,7 @@
 
   <app-playlist-table
     class="flex min-h-0 grow flex-col"
-    [isLoading]="playlistIsFetching()"
+    [isLoading]="playlist.isFetching()"
     [playlistTracks]="playlistTracksFiltered()"
   />
 </app-layout>

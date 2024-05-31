@@ -1,24 +1,26 @@
-<div class="mt-4 flex justify-end gap-1 text-sm font-semibold leading-3">
-  <div class="px-1 py-0.5">
-    <span>
-      @if (selectedCount() <= 1) {
-        {{ selectedCount() }} selecionado
-      } @else {
-        {{ selectedCount() }} selecionados
-      }
-    </span>
-  </div>
+@if (!isLoading()) {
+  <div class="mt-4 flex justify-end gap-1 text-sm font-semibold leading-3">
+    <div class="px-1 py-0.5">
+      <span>
+        @if (selectedCount() <= 1) {
+          {{ selectedCount() }} selecionado
+        } @else {
+          {{ selectedCount() }} selecionados
+        }
+      </span>
+    </div>
 
-  <div class="border-l border-[#414141] px-1 py-0.5">
-    <span>
-      @if (filteredCount() <= 1) {
-        {{ filteredCount() }} filtrado
-      } @else {
-        {{ filteredCount() }} filtrados
-      }
-    </span>
+    <div class="border-l border-[#414141] px-1 py-0.5">
+      <span>
+        @if (filteredCount() <= 1) {
+          {{ filteredCount() }} filtrado
+        } @else {
+          {{ filteredCount() }} filtrados
+        }
+      </span>
+    </div>
+    <div class="border-l border-[#414141] px-1 py-0.5">
+      <span> {{ total() }} total </span>
+    </div>
   </div>
-  <div class="border-l border-[#414141] px-1 py-0.5">
-    <span> {{ total() }} total </span>
-  </div>
-</div>
+}

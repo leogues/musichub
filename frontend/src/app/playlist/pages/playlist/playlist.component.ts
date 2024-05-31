@@ -2,7 +2,14 @@ import { PlaylistService } from "app/playlist/playlist.service";
 import { PlaylistDetailComponent } from "app/playlist/ui/playlist-detail/playlist-detail.component";
 import { PlaylistTableComponent } from "app/playlist/ui/playlist-table/playlist-table.component";
 
-import { Component, computed, inject, input, signal } from "@angular/core";
+import {
+  Component,
+  computed,
+  effect,
+  inject,
+  input,
+  signal,
+} from "@angular/core";
 import { DataInfoComponent } from "@components/data-info/data-info.component";
 import { LayoutComponent } from "@components/layout/layout.component";
 import { MusicPlayerComponent } from "@components/music-player/music-player.component";
@@ -29,10 +36,10 @@ export class PlaylistComponent {
   textFilter = signal("");
   optionFilter = signal("");
 
-  protected playlist = this.playlistService.playlist.data;
-  protected playlistIsFetching = this.playlistService.playlist.isFetching;
+  protected playlist = this.playlistService.playlist;
+  protected playlistData = this.playlist.data;
 
-  protected playlistTracks = computed(() => this.playlist()?.tracks || []);
+  protected playlistTracks = computed(() => this.playlistData()?.tracks || []);
   protected playlistTracksCount = computed(() => this.playlistTracks().length);
   protected selectedPlaylistTracks = computed(() => {
     return this.playlistTracks().filter((track) => track.isSelected());

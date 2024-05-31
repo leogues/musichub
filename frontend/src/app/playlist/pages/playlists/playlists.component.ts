@@ -1,13 +1,11 @@
-import { PlaylistsService } from 'app/playlist/playlists.service';
-import { PlaylistsTableComponent } from 'app/playlist/ui/playlists-table/playlists-table.component';
+import { PlaylistsService } from "app/playlist/playlists.service";
+import { PlaylistsTableComponent } from "app/playlist/ui/playlists-table/playlists-table.component";
 
-import { Component, computed, inject, input, signal } from '@angular/core';
-import { Router } from '@angular/router';
-import { DataInfoComponent } from '@components/data-info/data-info.component';
-import { LayoutComponent } from '@components/layout/layout.component';
-import {
-    SelectionFilterToolbarComponent
-} from '@components/selection-filter-toolbar/selection-filter-toolbar.component';
+import { Component, computed, inject, input, signal } from "@angular/core";
+import { Router } from "@angular/router";
+import { DataInfoComponent } from "@components/data-info/data-info.component";
+import { LayoutComponent } from "@components/layout/layout.component";
+import { SelectionFilterToolbarComponent } from "@components/selection-filter-toolbar/selection-filter-toolbar.component";
 
 @Component({
   selector: "app-playlists",
@@ -27,7 +25,7 @@ export class PlaylistsComponent {
 
   protected mePlaylists = this.playlistsService.mePlaylists;
   // mePlaylistsData = computed(() => this.mePlaylists.data());
-
+  protected mePlaylistIsFetching = this.mePlaylists.isPending();
   protected textFilter = signal("");
   protected optionFilter = signal<string[]>([]);
 

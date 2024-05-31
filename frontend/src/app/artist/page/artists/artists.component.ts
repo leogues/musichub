@@ -1,13 +1,11 @@
-import { ArtistService } from 'app/artist/artist.service';
-import { ArtistsTableComponent } from 'app/artist/ui/artists-table/artists-table.component';
+import { ArtistService } from "app/artist/artist.service";
+import { ArtistsTableComponent } from "app/artist/ui/artists-table/artists-table.component";
 
-import { Component, computed, inject, input, signal } from '@angular/core';
-import { Router } from '@angular/router';
-import { DataInfoComponent } from '@components/data-info/data-info.component';
-import { LayoutComponent } from '@components/layout/layout.component';
-import {
-    SelectionFilterToolbarComponent
-} from '@components/selection-filter-toolbar/selection-filter-toolbar.component';
+import { Component, computed, inject, input, signal } from "@angular/core";
+import { Router } from "@angular/router";
+import { DataInfoComponent } from "@components/data-info/data-info.component";
+import { LayoutComponent } from "@components/layout/layout.component";
+import { SelectionFilterToolbarComponent } from "@components/selection-filter-toolbar/selection-filter-toolbar.component";
 
 @Component({
   selector: "app-artists",

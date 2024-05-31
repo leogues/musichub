@@ -1,13 +1,11 @@
-import { AlbumsService } from 'app/album/albums.service';
-import { AlbumsTableComponent } from 'app/album/ui/albums-table/albums-table.component';
+import { AlbumsService } from "app/album/albums.service";
+import { AlbumsTableComponent } from "app/album/ui/albums-table/albums-table.component";
 
-import { Component, computed, inject, input, signal } from '@angular/core';
-import { Router } from '@angular/router';
-import { DataInfoComponent } from '@components/data-info/data-info.component';
-import { LayoutComponent } from '@components/layout/layout.component';
-import {
-    SelectionFilterToolbarComponent
-} from '@components/selection-filter-toolbar/selection-filter-toolbar.component';
+import { Component, computed, inject, input, signal } from "@angular/core";
+import { Router } from "@angular/router";
+import { DataInfoComponent } from "@components/data-info/data-info.component";
+import { LayoutComponent } from "@components/layout/layout.component";
+import { SelectionFilterToolbarComponent } from "@components/selection-filter-toolbar/selection-filter-toolbar.component";
 
 @Component({
   selector: "app-albums",
