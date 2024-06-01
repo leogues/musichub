@@ -35,6 +35,15 @@ jobs:
           cache-from: type=gha
           cache-to: type=gha,mode=max
 
+      - name: Build and push proxy Docker image
+        uses: docker/build-push-action@v5
+        with:
+          context: '{{defaultContext}}:proxy'
+          push: true
+          tags: leogues/music-hub-proxy:latest, leogues/music-hub-proxy:${{ github.run_number }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+
       - name: AWS CLI Configure
         uses: aws-actions/configure-aws-credentials@v1
         with:
