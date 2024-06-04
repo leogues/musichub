@@ -44,13 +44,13 @@ jobs:
           cache-from: type=gha
           cache-to: type=gha,mode=max
 
-      - name: Deploy script SSH
+      - name: SSH Deploy script
         uses: appleboy/ssh-action@master
         with:
           host: ${{ secrets.SSH_HOST}}
           username: ${{ secrets.SSH_USERNAME}}
           password: ${{ secrets.SSH_PASSWORD}}
           script: |
-            cd ~/src/musichub
+            cd ~/srv/musichub
             chmod +x deploy-script
             ./deploy-script
