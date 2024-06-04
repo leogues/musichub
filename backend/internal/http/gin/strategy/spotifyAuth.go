@@ -9,8 +9,8 @@ func OAuth2SpotifyConfig(SpotifyClientID string, SpotifyClientSecret string) *oa
 	redirectURL := baseUrl + "auth/spotify/callback"
 	return &oauth2.Config{
 		ClientID:     SpotifyClientID,
-		ClientSecret: redirectURL,
-		RedirectURL:  "http://localhost/api/auth/spotify/callback",
+		ClientSecret: SpotifyClientSecret,
+		RedirectURL:  redirectURL,
 		Scopes:       []string{"user-read-private", "user-read-email", "playlist-read-private", "playlist-read-collaborative", "user-library-read", "user-follow-read"},
 		Endpoint:     spotify.Endpoint,
 	}
