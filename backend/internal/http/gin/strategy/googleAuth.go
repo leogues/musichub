@@ -9,7 +9,7 @@ import (
 )
 
 const (
-	baseUrl = "https://www.googleapis.com/oauth2/v1"
+	googleBaseUrl = "https://www.googleapis.com/oauth2/v1"
 )
 
 type clientGoogle struct {
@@ -31,17 +31,18 @@ func NewClientGoogle(token *oauth2.Token) *clientGoogle {
 }
 
 func OAuth2GoogleConfig(GoogleClientID string, GoogleClientSecret string) *oauth2.Config {
+	redirectURL := baseUrl + "auth/google/callback"
 	return &oauth2.Config{
 		ClientID:     GoogleClientID,
 		ClientSecret: GoogleClientSecret,
-		RedirectURL:  "http://localhost/api/auth/google/callback",
+		RedirectURL:  redirectURL,
 		Scopes:       []string{"https://www.googleapis.com/auth/userinfo.email", "https://www.googleapis.com/auth/userinfo.profile"},
 		Endpoint:     google.Endpoint,
 	}
 }
 
 func (client *clientGoogle) GoogleUserInfo() (*UserInfo, error) {
-	url := baseUrl + "/userinfo"
+	url := googleBaseUrl + "/userinfo"
 
 	header := http.Header{}
 	header.Add("Authorization", "Bearer "+client.token.AccessToken)
