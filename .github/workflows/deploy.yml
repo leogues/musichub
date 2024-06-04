@@ -44,7 +44,7 @@ jobs:
           cache-from: type=gha
           cache-to: type=gha,mode=max
 
-      - name: AWS CLI Configure
+      - name: Deploy script SSH
         uses: appleboy/ssh-action@master
         with:
           host: ${{ secrets.SSH_HOST}}
