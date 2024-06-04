@@ -51,6 +51,6 @@ jobs:
           username: ${{ secrets.SSH_USERNAME}}
           password: ${{ secrets.SSH_PASSWORD}}
           script: |
-            cd ~/srv/musichub
+            cd ../srv/musichub
             chmod +x deploy-script
             ./deploy-script
