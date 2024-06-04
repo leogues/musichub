@@ -47,16 +47,6 @@ func (s *GinServer) getPlaylist(c *gin.Context, svc musichub.PlaylistService) {
 	playlistID := c.Param("id")
 
 	playlist, err := svc.FindPlaylistByID(c.Request.Context(), playlistID)
-	playlist.Tracks = append(playlist.Tracks, playlist.Tracks...)
-	playlist.Tracks = append(playlist.Tracks, playlist.Tracks...)
-	playlist.Tracks = append(playlist.Tracks, playlist.Tracks...)
-	playlist.Tracks = append(playlist.Tracks, playlist.Tracks...)
-	playlist.Tracks = append(playlist.Tracks, playlist.Tracks...)
-	playlist.Tracks = append(playlist.Tracks, playlist.Tracks...)
-	playlist.Tracks = append(playlist.Tracks, playlist.Tracks...)
-	playlist.Tracks = append(playlist.Tracks, playlist.Tracks...)
-	playlist.Tracks = append(playlist.Tracks, playlist.Tracks...)
-	playlist.Tracks = append(playlist.Tracks, playlist.Tracks...)
 
 	if err != nil {
 		s.Error(c, err)
