@@ -45,12 +45,12 @@ jobs:
           cache-to: type=gha,mode=max
 
       - name: AWS CLI Configure
-        uses: aws-actions/configure-aws-credentials@v1
+        uses: appleboy/ssh-action@master
         with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: ${{ vars.AWS_REGION}}
-
-      - name: Deploy to ECS
-        run: |
-          aws ecs update-service --cluster ${{vars.CLUSTER_NAME}} --service ${{vars.SERVICE_NAME}} --force-new-deployment
+          host: ${{ secrets.SSH_HOST}}
+          username: ${{ secrets.SSH_USERNAME}}
+          password: ${{ secrets.SSH_PASSWORD}}
+          script: |
+            cd ~/src/musichub
+            chmod +x deploy-script
+            ./deploy-script
