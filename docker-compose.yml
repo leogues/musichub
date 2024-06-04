@@ -10,6 +10,8 @@ services:
   frontend:
     container_name: frontend
     build: ./frontend
+    environment:
+      BASEURL: http://localhost
   db:
     container_name: postgres
     image: postgres
@@ -23,12 +25,12 @@ services:
       timeout: 5s
       retries: 20
     volumes:
-      - postgres-db:/var/lib/postgresql/data
+      - postgres_db:/var/lib/postgresql/data
   proxy:
     container_name: proxy
     build: ./proxy
     ports:
-      - '80:80'
+      - '80:4000'
     depends_on:
       - backend
       - frontend
