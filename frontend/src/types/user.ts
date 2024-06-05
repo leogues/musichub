@@ -1,4 +1,4 @@
-import { ProviderAuthResponse } from './providerAuth';
+import { ProviderAuthResponse } from "./providerAuth";
 
 export type User = {
   id: number;

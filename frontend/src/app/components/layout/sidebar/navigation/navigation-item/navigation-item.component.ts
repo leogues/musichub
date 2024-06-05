@@ -1,6 +1,6 @@
-import { CommonModule } from '@angular/common';
-import { Component, input, model } from '@angular/core';
-import { RouterLink, RouterLinkActive } from '@angular/router';
+import { CommonModule } from "@angular/common";
+import { Component, input, model } from "@angular/core";
+import { RouterLink, RouterLinkActive } from "@angular/router";
 
 @Component({
   selector: "app-navigation-item",

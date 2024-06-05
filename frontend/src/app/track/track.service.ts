@@ -7,9 +7,9 @@ import { APIQuery, DataQuery } from "@services/APIQuery";
 import { ProviderAuthService } from "@services/provider-auth.service";
 import { SupportedSources } from "@type/providerAuth";
 import { Track, TracksResponse } from "@type/track";
+import { filterAddedItems, filterRemovedItems } from "@utils/filter";
 
 import { ProvidersTracks } from "./track";
-import { filterAddedItems, filterRemovedItems } from "@utils/filter";
 
 @Injectable({
   providedIn: "root",

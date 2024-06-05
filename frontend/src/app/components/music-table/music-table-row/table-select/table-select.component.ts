@@ -1,4 +1,4 @@
-import { Component, WritableSignal, input } from "@angular/core";
+import { Component, input, WritableSignal } from "@angular/core";
 
 @Component({
   selector: "app-table-select",

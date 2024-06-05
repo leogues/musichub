@@ -1,10 +1,10 @@
-import { Component, ElementRef, inject, model, signal } from "@angular/core";
+import { Component, inject, model, signal } from "@angular/core";
 import { RouterLink } from "@angular/router";
 import { ProviderAuthService } from "@services/provider-auth.service";
-
-import { ProviderAuthComponent } from "./provider-auth/provider-auth.component";
-import { ProviderAuthPopupComponent } from "./provider-auth-popup/provider-auth-popup.component";
 import { ProviderAuthResponse } from "@type/providerAuth";
+
+import { ProviderAuthPopupComponent } from "./provider-auth-popup/provider-auth-popup.component";
+import { ProviderAuthComponent } from "./provider-auth/provider-auth.component";
 
 @Component({
   selector: "app-provider-auths",

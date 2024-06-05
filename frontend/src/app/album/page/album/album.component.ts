@@ -2,21 +2,14 @@ import { AlbumService } from "app/album/album.service";
 import { AlbumDetailComponent } from "app/album/ui/album-detail/album-detail.component";
 import { AlbumTableComponent } from "app/album/ui/album-table/album-table.component";
 
-import {
-  Component,
-  Input,
-  computed,
-  inject,
-  input,
-  model,
-  output,
-  signal,
-} from "@angular/core";
+import { Component, computed, inject, input, signal } from "@angular/core";
 import { DataInfoComponent } from "@components/data-info/data-info.component";
 import { LayoutComponent } from "@components/layout/layout.component";
 import { MusicPlayerComponent } from "@components/music-player/music-player.component";
-import { SelectionFilterToolbarComponent } from "@components/selection-filter-toolbar/selection-filter-toolbar.component";
 import { MusicTableService } from "@components/music-table/music-table.service";
+import {
+    SelectionFilterToolbarComponent
+} from "@components/selection-filter-toolbar/selection-filter-toolbar.component";
 
 @Component({
   selector: "app-album",

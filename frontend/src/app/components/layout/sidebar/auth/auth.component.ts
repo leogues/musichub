@@ -3,7 +3,9 @@ import { ProviderAuthService } from "@services/provider-auth.service";
 import { ProviderAuthInfo } from "@type/providerAuth";
 
 import { ProviderAuthsComponent } from "./provider-auths/provider-auths.component";
-import { UnauthenticatedAuthsPopoverComponent } from "./unauthenticated-auths-popover/unauthenticated-auths-popover.component";
+import {
+    UnauthenticatedAuthsPopoverComponent
+} from "./unauthenticated-auths-popover/unauthenticated-auths-popover.component";
 
 @Component({
   selector: "app-auth",

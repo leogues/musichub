@@ -1,5 +1,5 @@
-import { Component, input } from '@angular/core';
-import { TitleContent } from '@components/music-table/music-table';
+import { Component, input } from "@angular/core";
+import { TitleContent } from "@components/music-table/music-table";
 
 @Component({
   selector: "app-table-title",

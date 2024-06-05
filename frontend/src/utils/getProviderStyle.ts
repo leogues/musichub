@@ -1,4 +1,4 @@
-import { SupportedSources } from '../types/providerAuth';
+import { SupportedSources } from "../types/providerAuth";
 
 const providerStyle = {
   spotify: {

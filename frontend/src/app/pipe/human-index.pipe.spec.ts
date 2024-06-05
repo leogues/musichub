@@ -1,4 +1,4 @@
-import { HumanIndexPipe } from './human-index.pipe';
+import { HumanIndexPipe } from "./human-index.pipe";
 
 describe('HumanIndexPipe', () => {
   it('create an instance', () => {

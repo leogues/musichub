@@ -2,10 +2,7 @@ import { ArtistInfo } from "app/artist/artist";
 
 import { WritableSignal } from "@angular/core";
 import {
-  DateContent,
-  IndexContent,
-  TextContent,
-  TitleContent,
+    DateContent, IndexContent, TextContent, TitleContent
 } from "@components/music-table/music-table";
 import { SupportedSources } from "@type/providerAuth";
 import { Track, TrackResponse } from "@type/track";

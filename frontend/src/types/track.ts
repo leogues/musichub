@@ -1,11 +1,8 @@
 import { WritableSignal } from "@angular/core";
 import {
-  DurationContent,
-  IndexContent,
-  TextContent,
-  TitleContent,
-  TrackContent,
+    DurationContent, IndexContent, TextContent, TitleContent, TrackContent
 } from "@components/music-table/music-table";
+
 import { SupportedSources } from "./providerAuth";
 
 export type Track = {

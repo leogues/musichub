@@ -5,8 +5,10 @@ import { Component, computed, inject, input, signal } from "@angular/core";
 import { Router } from "@angular/router";
 import { DataInfoComponent } from "@components/data-info/data-info.component";
 import { LayoutComponent } from "@components/layout/layout.component";
-import { SelectionFilterToolbarComponent } from "@components/selection-filter-toolbar/selection-filter-toolbar.component";
 import { MusicTableService } from "@components/music-table/music-table.service";
+import {
+    SelectionFilterToolbarComponent
+} from "@components/selection-filter-toolbar/selection-filter-toolbar.component";
 
 @Component({
   selector: "app-albums",

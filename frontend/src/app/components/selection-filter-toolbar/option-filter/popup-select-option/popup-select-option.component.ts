@@ -1,9 +1,9 @@
 import {
     Component, computed, ElementRef, HostListener, input, model, viewChild
-} from '@angular/core';
-import { CapitalizeFirstLetterPipe } from '@pipe/capitalize-first-letter.pipe';
+} from "@angular/core";
+import { CapitalizeFirstLetterPipe } from "@pipe/capitalize-first-letter.pipe";
 
-import { Source } from '../source';
+import { Source } from "../source";
 
 @Component({
   selector: "app-popup-select-option",

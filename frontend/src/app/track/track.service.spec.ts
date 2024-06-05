@@ -1,6 +1,6 @@
-import { TestBed } from '@angular/core/testing';
+import { TestBed } from "@angular/core/testing";
 
-import { TrackService } from './track.service';
+import { TrackService } from "./track.service";
 
 describe('TrackService', () => {
   let service: TrackService;

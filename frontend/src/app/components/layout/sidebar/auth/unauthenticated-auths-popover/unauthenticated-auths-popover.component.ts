@@ -1,13 +1,5 @@
 import {
-  Component,
-  computed,
-  ElementRef,
-  HostListener,
-  inject,
-  model,
-  output,
-  signal,
-  viewChild,
+    Component, computed, ElementRef, HostListener, inject, model, output, signal, viewChild
 } from "@angular/core";
 import { FormsModule } from "@angular/forms";
 import { ProviderAuthService } from "@services/provider-auth.service";

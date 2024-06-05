@@ -1,6 +1,6 @@
-import { Component, input } from '@angular/core';
-import { DurationContent } from '@components/music-table/music-table';
-import { DurationInMinutesPipe } from '@pipe/duration-in-minutes.pipe';
+import { Component, input } from "@angular/core";
+import { DurationContent } from "@components/music-table/music-table";
+import { DurationInMinutesPipe } from "@pipe/duration-in-minutes.pipe";
 
 @Component({
   selector: "app-table-duration",

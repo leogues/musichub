@@ -4,7 +4,6 @@ import { catchError, tap } from "rxjs";
 import { HttpClient } from "@angular/common/http";
 import { inject, Injectable } from "@angular/core";
 import { toObservable } from "@angular/core/rxjs-interop";
-import { Router } from "@angular/router";
 import { User } from "@type/user";
 
 import { APIQuery, DataQuery } from "./APIQuery";

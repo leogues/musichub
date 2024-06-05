@@ -1,10 +1,10 @@
-import { ScrollingModule } from '@angular/cdk/scrolling';
-import { CommonModule } from '@angular/common';
-import { Component, input } from '@angular/core';
-import { OrderColumnPipe } from '@pipe/order-column.pipe';
+import { ScrollingModule } from "@angular/cdk/scrolling";
+import { CommonModule } from "@angular/common";
+import { Component, input } from "@angular/core";
+import { OrderColumnPipe } from "@pipe/order-column.pipe";
 
-import { TData, THeaderWithOrder } from '../music-table';
-import { MusicTableRowComponent } from '../music-table-row/music-table-row.component';
+import { TData, THeaderWithOrder } from "../music-table";
+import { MusicTableRowComponent } from "../music-table-row/music-table-row.component";
 
 @Component({
   selector: "app-music-table-body",

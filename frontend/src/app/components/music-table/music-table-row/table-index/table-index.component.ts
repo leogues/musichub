@@ -1,6 +1,6 @@
-import { Component, input } from '@angular/core';
-import { IndexContent } from '@components/music-table/music-table';
-import { HumanIndexPipe } from '@pipe/human-index.pipe';
+import { Component, input } from "@angular/core";
+import { IndexContent } from "@components/music-table/music-table";
+import { HumanIndexPipe } from "@pipe/human-index.pipe";
 
 @Component({
   selector: "app-table-index",

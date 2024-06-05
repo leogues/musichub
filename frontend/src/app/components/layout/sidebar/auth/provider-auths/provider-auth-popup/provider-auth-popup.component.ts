@@ -1,12 +1,5 @@
 import {
-  Component,
-  ElementRef,
-  HostListener,
-  effect,
-  input,
-  model,
-  signal,
-  viewChild,
+    Component, effect, ElementRef, HostListener, input, model, viewChild
 } from "@angular/core";
 import { CapitalizeFirstLetterPipe } from "@pipe/capitalize-first-letter.pipe";
 import { ProviderAuthResponse } from "@type/providerAuth";

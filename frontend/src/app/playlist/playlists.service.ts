@@ -5,10 +5,10 @@ import { HttpClient } from "@angular/common/http";
 import { inject, Injectable, signal } from "@angular/core";
 import { APIQuery, DataQuery } from "@services/APIQuery";
 import { ProviderAuthService } from "@services/provider-auth.service";
+import { filterAddedItems, filterRemovedItems } from "@utils/filter";
 
 import { SupportedSources } from "../../types/providerAuth";
 import { Playlist, PlaylistsResponse, ProvidersPlaylists } from "./playlist";
-import { filterAddedItems, filterRemovedItems } from "@utils/filter";
 
 @Injectable({
   providedIn: "root",

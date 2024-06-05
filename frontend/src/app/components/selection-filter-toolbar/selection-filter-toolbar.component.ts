@@ -1,9 +1,9 @@
-import { Component, input, model, output } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { Component, input, model, output } from "@angular/core";
+import { FormsModule } from "@angular/forms";
 
-import { OptionFilterComponent } from './option-filter/option-filter.component';
-import { TextFilterComponent } from './text-filter/text-filter.component';
-import { ToolbarComponent } from './toolbar/toolbar.component';
+import { OptionFilterComponent } from "./option-filter/option-filter.component";
+import { TextFilterComponent } from "./text-filter/text-filter.component";
+import { ToolbarComponent } from "./toolbar/toolbar.component";
 
 @Component({
   selector: "app-selection-filter-toolbar",

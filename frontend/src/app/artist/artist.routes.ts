@@ -1,6 +1,6 @@
-import { Routes } from '@angular/router';
+import { Routes } from "@angular/router";
 
-import { ArtistsComponent } from './page/artists/artists.component';
+import { ArtistsComponent } from "./page/artists/artists.component";
 
 export const ARTIST_ROUTES: Routes = [
   { path: "", component: ArtistsComponent },

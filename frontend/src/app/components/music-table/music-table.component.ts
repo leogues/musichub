@@ -1,18 +1,10 @@
-import {
-  Component,
-  computed,
-  effect,
-  inject,
-  input,
-  signal,
-  WritableSignal,
-} from "@angular/core";
+import { Component, computed, inject, input, signal, WritableSignal } from "@angular/core";
+import { toObservable } from "@angular/core/rxjs-interop";
 
 import { TData, THeader, THeaderWithOrder } from "./music-table";
 import { MusicTableBodyComponent } from "./music-table-body/music-table-body.component";
 import { MusicTableHeaderComponent } from "./music-table-header/music-table-header.component";
 import { MusicTableService } from "./music-table.service";
-import { toObservable } from "@angular/core/rxjs-interop";
 
 @Component({
   selector: "app-music-table",

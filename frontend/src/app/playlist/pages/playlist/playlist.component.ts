@@ -2,19 +2,14 @@ import { PlaylistService } from "app/playlist/playlist.service";
 import { PlaylistDetailComponent } from "app/playlist/ui/playlist-detail/playlist-detail.component";
 import { PlaylistTableComponent } from "app/playlist/ui/playlist-table/playlist-table.component";
 
-import {
-  Component,
-  computed,
-  effect,
-  inject,
-  input,
-  signal,
-} from "@angular/core";
+import { Component, computed, inject, input, signal } from "@angular/core";
 import { DataInfoComponent } from "@components/data-info/data-info.component";
 import { LayoutComponent } from "@components/layout/layout.component";
 import { MusicPlayerComponent } from "@components/music-player/music-player.component";
-import { SelectionFilterToolbarComponent } from "@components/selection-filter-toolbar/selection-filter-toolbar.component";
 import { MusicTableService } from "@components/music-table/music-table.service";
+import {
+    SelectionFilterToolbarComponent
+} from "@components/selection-filter-toolbar/selection-filter-toolbar.component";
 
 @Component({
   selector: "app-playlist",

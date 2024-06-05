@@ -1,5 +1,5 @@
-import { Pipe, PipeTransform } from '@angular/core';
-import { TData, THeaderWithOrder } from '@components/music-table/music-table';
+import { Pipe, PipeTransform } from "@angular/core";
+import { TData, THeaderWithOrder } from "@components/music-table/music-table";
 
 type ColumnType = {
   type: string;

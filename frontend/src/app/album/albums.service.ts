@@ -6,9 +6,9 @@ import { inject, Injectable, signal } from "@angular/core";
 import { APIQuery, DataQuery } from "@services/APIQuery";
 import { ProviderAuthService } from "@services/provider-auth.service";
 import { SupportedSources } from "@type/providerAuth";
+import { filterAddedItems, filterRemovedItems } from "@utils/filter";
 
 import { Album, AlbumsResponse, ProvidersAlbums } from "./album";
-import { filterRemovedItems, filterAddedItems } from "@utils/filter";
 
 @Injectable({
   providedIn: "root",
