@@ -8,6 +8,7 @@ import { ProviderAuthService } from "@services/provider-auth.service";
 
 import { SupportedSources } from "../../types/providerAuth";
 import { Playlist, PlaylistsResponse, ProvidersPlaylists } from "./playlist";
+import { filterAddedItems, filterRemovedItems } from "@utils/filter";
 
 @Injectable({
   providedIn: "root",
@@ -95,37 +96,26 @@ export class PlaylistsService {
     });
   }
 
-  private removedSourcesSubscription: Subscription;
-  private addedSourcesSubscription: Subscription;
+  private sourcesSubscription: Subscription;
 
   constructor() {
-    this.removedSourcesSubscription =
-      this.authenticatedSourcesObservable.subscribe((authenticatedSources) => {
-        const removedSources = Object.keys(this.mePlaylistsQuery.data()).filter(
-          (source) =>
-            !authenticatedSources.includes(source as SupportedSources),
+    this.sourcesSubscription = this.authenticatedSourcesObservable.subscribe(
+      (authenticatedSources) => {
+        filterRemovedItems(
+          authenticatedSources,
+          this.mePlaylistsQuery.data(),
+          this.removeProviderPlaylists.bind(this),
         );
-
-        if (removedSources.length === 0) return;
-        this.addProviderPlaylists(removedSources as SupportedSources[]);
-      });
-
-    this.addedSourcesSubscription =
-      this.authenticatedSourcesObservable.subscribe((authenticatedSources) => {
-        const addedSources = authenticatedSources.filter(
-          (source) =>
-            !Object.keys(this.mePlaylistsQuery.data()).includes(source),
+        filterAddedItems(
+          authenticatedSources,
+          this.mePlaylistsQuery.data(),
+          this.addProviderPlaylists.bind(this),
         );
-
-        if (addedSources.length === 0) return;
-        this.addProviderPlaylists(addedSources);
-      });
+      },
+    );
   }
 
   ngOnDestroy() {
-    if (this.removedSourcesSubscription)
-      this.removedSourcesSubscription.unsubscribe();
-    if (this.addedSourcesSubscription)
-      this.addedSourcesSubscription.unsubscribe();
+    if (this.sourcesSubscription) this.sourcesSubscription.unsubscribe();
   }
 }

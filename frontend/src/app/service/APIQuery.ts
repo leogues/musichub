@@ -1,4 +1,4 @@
-import { signal, WritableSignal } from '@angular/core';
+import { signal, WritableSignal } from "@angular/core";
 
 enum Status {
   pending = "pending",
@@ -6,7 +6,7 @@ enum Status {
   error = "error",
 }
 
-export class APIQuery<T, E extends Error[] | Error> {
+export class APIQuery<T, E extends Error[] | Error | Record<string, Error>> {
   private defaultData: T;
   data: WritableSignal<T>;
   private _isFetching: WritableSignal<boolean>;
@@ -62,7 +62,7 @@ export class APIQuery<T, E extends Error[] | Error> {
   }
 }
 
-export class DataQuery<T, E extends Error[] | Error> {
+export class DataQuery<T, E extends Error[] | Error | Record<string, Error>> {
   private APIQuery: APIQuery<T, E>;
   constructor(APIQuery: APIQuery<T, E>) {
     this.APIQuery = APIQuery;

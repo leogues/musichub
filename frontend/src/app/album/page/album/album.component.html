@@ -1,12 +1,13 @@
 <app-layout title="Detalhe do álbum" (refreshData)="handleRefreshData()">
-  @if (album()) {
+  @if (!album.isPending()) {
     <app-album-detail
-      [album]="album()!"
+      [album]="albumData()!"
       [albumTracksCount]="albumTracksCount()"
     />
   }
   <app-music-player [tracks]="albumTracks()" />
   <app-data-info
+    [isLoading]="album.isPending()"
     [total]="albumTracksCount()"
     [filteredCount]="albumTracksFilteredCount()"
     [selectedCount]="albumTracksFilteredSelectedCount()"
@@ -19,7 +20,7 @@
 
   <app-album-table
     class="flex min-h-0 grow flex-col"
-    [isLoading]="albumIsFetching()"
+    [isLoading]="album.isFetching()"
     [albumTracks]="albumTracksFiltered()"
   />
 </app-layout>

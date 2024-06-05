@@ -38,10 +38,10 @@ export class AlbumComponent {
   textFilter = signal("");
   optionFilter = signal("");
 
-  protected album = this.albumService.album.data;
-  protected albumIsFetching = this.albumService.album.isFetching;
+  protected album = this.albumService.album;
+  protected albumData = this.album.data;
 
-  protected albumTracks = computed(() => this.album()?.tracks || []);
+  protected albumTracks = computed(() => this.albumData()?.tracks || []);
   protected albumTracksCount = computed(() => this.albumTracks().length);
   protected selectedAlbumTracks = computed(() => {
     return this.albumTracks().filter((track) => track.isSelected());

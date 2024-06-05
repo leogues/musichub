@@ -8,6 +8,7 @@ import { ProviderAuthService } from "@services/provider-auth.service";
 import { SupportedSources } from "@type/providerAuth";
 
 import { Album, AlbumsResponse, ProvidersAlbums } from "./album";
+import { filterRemovedItems, filterAddedItems } from "@utils/filter";
 
 @Injectable({
   providedIn: "root",
@@ -23,9 +24,10 @@ export class AlbumsService {
   private authenticatedSourcesObservable =
     this.providerAuthService.authenticatedSourcesObservable;
 
-  private meAlbumsQuery = new APIQuery<ProvidersAlbums, Error[]>(
-    {} as ProvidersAlbums,
-  );
+  private meAlbumsQuery = new APIQuery<
+    ProvidersAlbums,
+    Record<SupportedSources, Error>
+  >({} as ProvidersAlbums);
   meAlbums = new DataQuery(this.meAlbumsQuery);
 
   private fetchAlbums(authenticatedSources: SupportedSources[]) {
@@ -73,7 +75,7 @@ export class AlbumsService {
           this.meAlbumsQuery.success(fetchedAlbums);
         }),
 
-        catchError((error) => {
+        catchError((error: Record<SupportedSources, Error>) => {
           this.meAlbumsQuery.fail(error);
           return [];
         }),
@@ -97,35 +99,26 @@ export class AlbumsService {
     });
   }
 
-  private removedSourcesSubscription: Subscription;
-  private addedSourcesSubscription: Subscription;
+  private sourcesSubscription: Subscription;
 
   constructor() {
-    this.removedSourcesSubscription =
-      this.authenticatedSourcesObservable.subscribe((authenticatedSources) => {
-        const removedSources = Object.keys(this.meAlbumsQuery.data()).filter(
-          (source) =>
-            !authenticatedSources.includes(source as SupportedSources),
+    this.sourcesSubscription = this.authenticatedSourcesObservable.subscribe(
+      (authenticatedSources) => {
+        filterRemovedItems(
+          authenticatedSources,
+          this.meAlbumsQuery.data(),
+          this.removeProviderAlbums.bind(this),
         );
-
-        if (removedSources.length === 0) return;
-        this.removeProviderAlbums(removedSources as SupportedSources[]);
-      });
-
-    this.addedSourcesSubscription =
-      this.authenticatedSourcesObservable.subscribe((authenticatedSources) => {
-        const addedSources = authenticatedSources.filter(
-          (source) => !Object.keys(this.meAlbumsQuery.data()).includes(source),
+        filterAddedItems(
+          authenticatedSources,
+          this.meAlbumsQuery.data(),
+          this.addProviderAlbums.bind(this),
         );
-        if (addedSources.length === 0) return;
-        this.addProviderAlbums(addedSources);
-      });
+      },
+    );
   }
 
   ngOnDestroy() {
-    if (this.removedSourcesSubscription)
-      this.removedSourcesSubscription.unsubscribe();
-    if (this.addedSourcesSubscription)
-      this.addedSourcesSubscription.unsubscribe();
+    if (this.sourcesSubscription) this.sourcesSubscription.unsubscribe();
   }
 }
