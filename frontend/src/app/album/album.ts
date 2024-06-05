@@ -1,11 +1,14 @@
-import { ArtistInfo } from 'app/artist/artist';
+import { ArtistInfo } from "app/artist/artist";
 
-import { WritableSignal } from '@angular/core';
+import { WritableSignal } from "@angular/core";
 import {
-    DateContent, IndexContent, SelectContent, TextContent, TitleContent
-} from '@components/music-table/music-table';
-import { SupportedSources } from '@type/providerAuth';
-import { Track, TrackResponse } from '@type/track';
+  DateContent,
+  IndexContent,
+  TextContent,
+  TitleContent,
+} from "@components/music-table/music-table";
+import { SupportedSources } from "@type/providerAuth";
+import { Track, TrackResponse } from "@type/track";
 
 export type Album = {
   isSelected: WritableSignal<boolean>;
@@ -34,9 +37,9 @@ export type ProvidersAlbums = Record<SupportedSources, Album[]>;
 
 export type AlbumsTableData = {
   id: string;
+  isSelected: WritableSignal<boolean>;
   link: string;
   content: [
-    SelectContent,
     IndexContent,
     TitleContent,
     TextContent,

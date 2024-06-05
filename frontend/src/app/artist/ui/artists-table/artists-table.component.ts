@@ -1,19 +1,12 @@
-import { Artist } from 'app/artist/artist';
+import { Artist } from "app/artist/artist";
 
-import { Component, input } from '@angular/core';
-import { THeader } from '@components/music-table/music-table';
-import { MusicTableComponent } from '@components/music-table/music-table.component';
+import { Component, input } from "@angular/core";
+import { THeader } from "@components/music-table/music-table";
+import { MusicTableComponent } from "@components/music-table/music-table.component";
 
-import { artistsToTableData } from './toTableData';
+import { artistsToTableData } from "./toTableData";
 
 const tableHeader: THeader[] = [
-  {
-    contentType: "select",
-    label: "checkbox",
-    labelType: "text",
-    positionCenter: true,
-    isHidden: true,
-  },
   {
     contentType: "index",
     label: "#",

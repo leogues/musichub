@@ -2,7 +2,6 @@ import { WritableSignal } from "@angular/core";
 import {
   DurationContent,
   IndexContent,
-  SelectContent,
   TextContent,
   TitleContent,
   TrackContent,
@@ -10,8 +9,8 @@ import {
 import { SupportedSources } from "./providerAuth";
 
 export type Track = {
-  isSelected: WritableSignal<boolean>;
   id: string;
+  isSelected: WritableSignal<boolean>;
   type: string;
   platform: SupportedSources;
   title: string;
@@ -38,8 +37,8 @@ export type TracksResponse = TrackResponse[];
 
 export type TracksTableData = {
   id: string;
+  isSelected: WritableSignal<boolean>;
   content: [
-    SelectContent,
     IndexContent,
     TitleContent,
     TextContent,

@@ -1,6 +1,9 @@
 <header
   class="gap-4 border-y border-[#949494] bg-[#1D1D1D] py-3 pl-3 text-[#e4e4e4]"
 >
+  <div class="relative flex items-center gap-1 hover:text-white">
+    <span class="invisible text-base font-bold">select</span>
+  </div>
   @for (header of header(); track header.label) {
     <div
       class="group flex items-center"

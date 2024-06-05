@@ -1,17 +1,14 @@
-import { Artist, ArtistsTableData } from 'app/artist/artist';
+import { Artist, ArtistsTableData } from "app/artist/artist";
 
-import { formatNumber } from '@utils/formatNumber';
-import { getProviderTextColor } from '@utils/getProviderStyle';
+import { formatNumber } from "@utils/formatNumber";
+import { getProviderTextColor } from "@utils/getProviderStyle";
 
 export const artistsToTableData = (artists: Artist[]): ArtistsTableData[] => {
   return artists.map((album, index) => {
     return {
       id: album.id,
+      isSelected: album.isSelected,
       content: [
-        {
-          type: "select",
-          isSelected: album.isSelected,
-        },
         {
           type: "index",
           index: index,

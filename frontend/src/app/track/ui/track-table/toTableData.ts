@@ -1,15 +1,12 @@
-import { Track, TracksTableData } from '@type/track';
-import { getProviderTextColor } from '@utils/getProviderStyle';
+import { Track, TracksTableData } from "@type/track";
+import { getProviderTextColor } from "@utils/getProviderStyle";
 
 export const tracksToTableData = (tracks: Track[]): TracksTableData[] => {
   return tracks.map((track, index) => {
     return {
       id: track.id,
+      isSelected: track.isSelected,
       content: [
-        {
-          type: "select",
-          isSelected: track.isSelected,
-        },
         {
           type: "index",
           index: index,

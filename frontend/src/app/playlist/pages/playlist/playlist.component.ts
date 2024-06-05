@@ -14,6 +14,7 @@ import { DataInfoComponent } from "@components/data-info/data-info.component";
 import { LayoutComponent } from "@components/layout/layout.component";
 import { MusicPlayerComponent } from "@components/music-player/music-player.component";
 import { SelectionFilterToolbarComponent } from "@components/selection-filter-toolbar/selection-filter-toolbar.component";
+import { MusicTableService } from "@components/music-table/music-table.service";
 
 @Component({
   selector: "app-playlist",
@@ -30,6 +31,7 @@ import { SelectionFilterToolbarComponent } from "@components/selection-filter-to
 })
 export class PlaylistComponent {
   private playlistService = inject(PlaylistService);
+  private tableMusicService = inject(MusicTableService);
   platform = input("", { alias: "provider" });
   playlistId = input("", { alias: "id" });
 
@@ -41,9 +43,6 @@ export class PlaylistComponent {
 
   protected playlistTracks = computed(() => this.playlistData()?.tracks || []);
   protected playlistTracksCount = computed(() => this.playlistTracks().length);
-  protected selectedPlaylistTracks = computed(() => {
-    return this.playlistTracks().filter((track) => track.isSelected());
-  });
 
   protected playlistTracksFiltered = computed(() => {
     const text = this.textFilter().toLowerCase();
@@ -57,31 +56,13 @@ export class PlaylistComponent {
       );
     });
   });
-  protected playlistTracksFilteredCount = computed(() => {
-    return this.playlistTracksFiltered().length;
-  });
-  protected playlistTracksFilteredSelectedCount = computed(() => {
-    return this.playlistTracksFiltered().reduce((acc, track) => {
-      return track.isSelected() ? acc + 1 : acc;
-    }, 0);
-  });
-
-  protected isAllSelected = computed(() => {
-    if (this.playlistTracksFilteredCount() === 0) return false;
-
-    return (
-      this.playlistTracksFilteredCount() ===
-      this.playlistTracksFilteredSelectedCount()
-    );
-  });
+  protected playlistTracksFilteredCount = this.tableMusicService.dataCount;
+  protected playlistTracksFilteredSelectedCount =
+    this.tableMusicService.dataSelectedCount;
+  protected isAllSelected = this.tableMusicService.isAllSelected;
 
   toggleSelectAllFiltered() {
-    const isAllSelected = this.isAllSelected();
-    const playlistTracksFiltered = this.playlistTracksFiltered();
-
-    playlistTracksFiltered.forEach((track) => {
-      track.isSelected.set(!isAllSelected);
-    });
+    this.tableMusicService.toggleSelectAll();
   }
 
   handleRefreshData() {

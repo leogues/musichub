@@ -1,5 +1,4 @@
-import { Component, input } from '@angular/core';
-import { SelectContent } from '@components/music-table/music-table';
+import { Component, WritableSignal, input } from "@angular/core";
 
 @Component({
   selector: "app-table-select",
@@ -8,8 +7,16 @@ import { SelectContent } from '@components/music-table/music-table';
   templateUrl: "./table-select.component.html",
 })
 export class TableSelectComponent {
-  content = input.required<SelectContent>();
-
+  content = input.required<
+    { isSelected: WritableSignal<boolean> },
+    WritableSignal<boolean>
+  >({
+    transform: (isSelected) => {
+      return {
+        isSelected,
+      };
+    },
+  });
   toggleSelect(event: MouseEvent) {
     this.content().isSelected.update((isSelected) => !isSelected);
     event.stopPropagation();

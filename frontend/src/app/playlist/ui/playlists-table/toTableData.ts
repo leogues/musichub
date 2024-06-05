@@ -1,6 +1,6 @@
-import { getProviderTextColor } from '@utils/getProviderStyle';
+import { getProviderTextColor } from "@utils/getProviderStyle";
 
-import { Playlist, PlaylistsTableData } from '../../playlist';
+import { Playlist, PlaylistsTableData } from "../../playlist";
 
 const link = ":provider/:playlistId";
 
@@ -10,14 +10,11 @@ export const playlistsToTableData = (
   return playlists.map((playlist, index) => {
     return {
       id: playlist.id,
+      isSelected: playlist.isSelected,
       link: link
         .replace(":provider", playlist.platform)
         .replace(":playlistId", playlist.id),
       content: [
-        {
-          type: "select",
-          isSelected: playlist.isSelected,
-        },
         {
           type: "index",
           index: index,
