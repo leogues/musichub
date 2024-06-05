@@ -1,5 +1,6 @@
 <app-layout title="Álbuns" (refreshData)="handleRefreshData()">
   <app-data-info
+    [isLoading]="meAlbums.isFetching()"
     [total]="meAlbumsCount()"
     [filteredCount]="meAlbumsFilteredCount()"
     [selectedCount]="selectedMeAlbumsCount()"

@@ -1,4 +1,4 @@
-import { ProviderAuthInfo, SupportedSources } from '@type/providerAuth';
+import { ProviderAuthInfo, SupportedSources } from "@type/providerAuth";
 
 export const suportedProviders: Record<SupportedSources, ProviderAuthInfo> = {
   spotify: {

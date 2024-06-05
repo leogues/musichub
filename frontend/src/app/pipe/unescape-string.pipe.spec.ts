@@ -1,4 +1,4 @@
-import { UnescapeStringPipe } from './unescape-string.pipe';
+import { UnescapeStringPipe } from "./unescape-string.pipe";
 
 describe('UnescapeStringPipe', () => {
   it('create an instance', () => {

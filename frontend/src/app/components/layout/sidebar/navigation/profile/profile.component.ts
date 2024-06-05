@@ -1,6 +1,6 @@
-import { Component, computed, inject } from '@angular/core';
-import { FirstWordPipe } from '@pipe/first-word.pipe';
-import { UserService } from '@services/user.service';
+import { Component, computed, inject } from "@angular/core";
+import { FirstWordPipe } from "@pipe/first-word.pipe";
+import { UserService } from "@services/user.service";
 
 @Component({
   selector: "app-profile",

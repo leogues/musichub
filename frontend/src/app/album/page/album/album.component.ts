@@ -2,20 +2,14 @@ import { AlbumService } from "app/album/album.service";
 import { AlbumDetailComponent } from "app/album/ui/album-detail/album-detail.component";
 import { AlbumTableComponent } from "app/album/ui/album-table/album-table.component";
 
-import {
-  Component,
-  Input,
-  computed,
-  inject,
-  input,
-  model,
-  output,
-  signal,
-} from "@angular/core";
+import { Component, computed, inject, input, signal } from "@angular/core";
 import { DataInfoComponent } from "@components/data-info/data-info.component";
 import { LayoutComponent } from "@components/layout/layout.component";
 import { MusicPlayerComponent } from "@components/music-player/music-player.component";
-import { SelectionFilterToolbarComponent } from "@components/selection-filter-toolbar/selection-filter-toolbar.component";
+import { MusicTableService } from "@components/music-table/music-table.service";
+import {
+    SelectionFilterToolbarComponent
+} from "@components/selection-filter-toolbar/selection-filter-toolbar.component";
 
 @Component({
   selector: "app-album",
@@ -32,20 +26,18 @@ import { SelectionFilterToolbarComponent } from "@components/selection-filter-to
 })
 export class AlbumComponent {
   private albumService = inject(AlbumService);
+  private tableMusicService = inject(MusicTableService);
   platform = input("", { alias: "provider" });
   albumId = input("", { alias: "id" });
 
-  textFilter = signal("");
-  optionFilter = signal("");
+  protected textFilter = signal("");
+  protected optionFilter = signal("");
 
-  protected album = this.albumService.album.data;
-  protected albumIsFetching = this.albumService.album.isFetching;
+  protected album = this.albumService.album;
+  protected albumData = this.album.data;
 
-  protected albumTracks = computed(() => this.album()?.tracks || []);
+  protected albumTracks = computed(() => this.albumData()?.tracks || []);
   protected albumTracksCount = computed(() => this.albumTracks().length);
-  protected selectedAlbumTracks = computed(() => {
-    return this.albumTracks().filter((track) => track.isSelected());
-  });
 
   protected albumTracksFiltered = computed(() => {
     const text = this.textFilter().toLowerCase();
@@ -58,30 +50,13 @@ export class AlbumComponent {
       );
     });
   });
-  protected albumTracksFilteredCount = computed(() => {
-    return this.albumTracksFiltered().length;
-  });
-  protected albumTracksFilteredSelectedCount = computed(() => {
-    return this.albumTracksFiltered().reduce((acc, track) => {
-      return track.isSelected() ? acc + 1 : acc;
-    }, 0);
-  });
-
-  protected isAllSelected = computed(() => {
-    if (this.albumTracksFilteredCount() === 0) return false;
-    return (
-      this.albumTracksFilteredSelectedCount() ===
-      this.albumTracksFilteredCount()
-    );
-  });
+  protected albumTracksFilteredCount = this.tableMusicService.dataCount;
+  protected albumTracksFilteredSelectedCount =
+    this.tableMusicService.dataSelectedCount;
+  protected isAllSelected = this.tableMusicService.isAllSelected;
 
   toggleSelectAllFiltered() {
-    const isAllSelected = this.isAllSelected();
-    const playlistTracksFiltered = this.albumTracksFiltered();
-
-    playlistTracksFiltered.forEach((track) => {
-      track.isSelected.set(!isAllSelected);
-    });
+    this.tableMusicService.toggleSelectAll();
   }
 
   handleRefreshData() {

@@ -1,7 +1,7 @@
-import { CommonModule } from '@angular/common';
-import { Component, input, output, signal } from '@angular/core';
+import { CommonModule } from "@angular/common";
+import { Component, input, output, signal } from "@angular/core";
 
-import { THeader, THeaderWithOrder, TOrderEnum } from '../music-table';
+import { THeader, THeaderWithOrder, TOrderEnum } from "../music-table";
 
 @Component({
   selector: "app-music-table-header",

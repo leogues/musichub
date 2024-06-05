@@ -1,13 +1,5 @@
 import { CommonModule } from "@angular/common";
-import {
-  Component,
-  computed,
-  effect,
-  ElementRef,
-  HostListener,
-  signal,
-  viewChild,
-} from "@angular/core";
+import { Component, computed, ElementRef, HostListener, signal, viewChild } from "@angular/core";
 import { cn } from "@utils/cn";
 
 import { AuthComponent } from "./auth/auth.component";

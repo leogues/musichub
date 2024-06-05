@@ -1,13 +1,4 @@
-import {
-  Component,
-  effect,
-  ElementRef,
-  inject,
-  input,
-  Input,
-  viewChild,
-  ViewChild,
-} from "@angular/core";
+import { Component, effect, ElementRef, inject, input, viewChild } from "@angular/core";
 
 import { Track } from "../../../types/track";
 import { MusicPlayerService } from "../../service/music-player.service";

@@ -1,4 +1,4 @@
-import { OrderColumnPipe } from './order-column.pipe';
+import { OrderColumnPipe } from "./order-column.pipe";
 
 describe('OrderColumnPipe', () => {
   it('create an instance', () => {

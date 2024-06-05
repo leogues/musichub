@@ -5,7 +5,10 @@ import { Component, computed, inject, input, signal } from "@angular/core";
 import { Router } from "@angular/router";
 import { DataInfoComponent } from "@components/data-info/data-info.component";
 import { LayoutComponent } from "@components/layout/layout.component";
-import { SelectionFilterToolbarComponent } from "@components/selection-filter-toolbar/selection-filter-toolbar.component";
+import { MusicTableService } from "@components/music-table/music-table.service";
+import {
+    SelectionFilterToolbarComponent
+} from "@components/selection-filter-toolbar/selection-filter-toolbar.component";
 
 @Component({
   selector: "app-playlists",
@@ -20,6 +23,7 @@ import { SelectionFilterToolbarComponent } from "@components/selection-filter-to
 })
 export class PlaylistsComponent {
   private playlistsService = inject(PlaylistsService);
+  private tableMusicService = inject(MusicTableService);
   platform = input("", { alias: "provider" });
   router = inject(Router);
 
@@ -78,32 +82,13 @@ export class PlaylistsComponent {
       return isPlatformIncluded && isTextMatch;
     });
   });
-  protected mePlaylistsFilteredCount = computed(
-    () => this.mePlaylistsFiltered().length,
-  );
-  protected mePlaylistsFilteredSelectedCount = computed(() =>
-    this.mePlaylistsFiltered().reduce(
-      (acc, playlist) => (playlist.isSelected() ? acc + 1 : acc),
-      0,
-    ),
-  );
-
-  protected isAllSelected = computed(() => {
-    if (this.mePlaylistsFilteredCount() === 0) return false;
-
-    return (
-      this.mePlaylistsFilteredCount() ===
-      this.mePlaylistsFilteredSelectedCount()
-    );
-  });
+  protected mePlaylistsFilteredCount = this.tableMusicService.dataCount;
+  protected mePlaylistsFilteredSelectedCount =
+    this.tableMusicService.dataSelectedCount;
+  protected isAllSelected = this.tableMusicService.isAllSelected;
 
   toggleSelectAllFiltered() {
-    const isAllSelected = this.isAllSelected();
-    const mePlaylistsFiltered = this.mePlaylistsFiltered();
-
-    mePlaylistsFiltered.forEach((playlist) => {
-      playlist.isSelected.set(!isAllSelected);
-    });
+    this.tableMusicService.toggleSelectAll();
   }
 
   handleRefreshData() {

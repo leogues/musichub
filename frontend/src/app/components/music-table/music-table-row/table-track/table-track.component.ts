@@ -1,6 +1,6 @@
-import { Component, computed, inject, input } from '@angular/core';
-import { TrackContent } from '@components/music-table/music-table';
-import { MusicPlayerService } from '@services/music-player.service';
+import { Component, computed, inject, input } from "@angular/core";
+import { TrackContent } from "@components/music-table/music-table";
+import { MusicPlayerService } from "@services/music-player.service";
 
 @Component({
   selector: "app-table-track",

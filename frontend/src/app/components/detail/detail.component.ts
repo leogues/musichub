@@ -1,13 +1,5 @@
 import { CommonModule } from "@angular/common";
-import {
-  Component,
-  computed,
-  effect,
-  input,
-  model,
-  output,
-  viewChild,
-} from "@angular/core";
+import { Component, computed, input } from "@angular/core";
 import { CapitalizeFirstLetterPipe } from "@pipe/capitalize-first-letter.pipe";
 import { RemoveCharPipe } from "@pipe/remove-char.pipe";
 import { TruncatePipe } from "@pipe/truncate.pipe";

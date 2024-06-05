@@ -7,6 +7,7 @@ import { APIQuery, DataQuery } from "@services/APIQuery";
 import { ProviderAuthService } from "@services/provider-auth.service";
 import { SupportedSources } from "@type/providerAuth";
 import { Track, TracksResponse } from "@type/track";
+import { filterAddedItems, filterRemovedItems } from "@utils/filter";
 
 import { ProvidersTracks } from "./track";
 
@@ -89,36 +90,28 @@ export class TrackService {
     this.meTracksQuery.success(tracks);
   }
 
-  private removedSourcesSubscription: Subscription;
-  private addedSourcesSubscription: Subscription;
+  private sourcesSubscription: Subscription;
 
   constructor() {
-    this.removedSourcesSubscription =
-      this.authenticatedSourcesObservable.subscribe((authenticatedSources) => {
-        const removedSources = Object.keys(this.meTracksQuery.data()).filter(
-          (source) =>
-            !authenticatedSources.includes(source as SupportedSources),
+    this.sourcesSubscription = this.authenticatedSourcesObservable.subscribe(
+      (authenticatedSources) => {
+        console.log({ authenticatedSources });
+
+        filterRemovedItems(
+          authenticatedSources,
+          this.meTracksQuery.data(),
+          this.removeProviderTracks.bind(this),
         );
-
-        if (removedSources.length === 0) return;
-        this.removeProviderTracks(removedSources as SupportedSources[]);
-      });
-
-    this.addedSourcesSubscription =
-      this.authenticatedSourcesObservable.subscribe((authenticatedSources) => {
-        const addedSources = authenticatedSources.filter(
-          (source) => !Object.keys(this.meTracksQuery.data()).includes(source),
+        filterAddedItems(
+          authenticatedSources,
+          this.meTracksQuery.data(),
+          this.addProviderTracks.bind(this),
         );
-
-        if (addedSources.length === 0) return;
-        this.addProviderTracks(addedSources);
-      });
+      },
+    );
   }
 
   ngOnDestroy() {
-    if (this.removedSourcesSubscription)
-      this.removedSourcesSubscription.unsubscribe();
-    if (this.addedSourcesSubscription)
-      this.addedSourcesSubscription.unsubscribe();
+    if (this.sourcesSubscription) this.sourcesSubscription.unsubscribe();
   }
 }

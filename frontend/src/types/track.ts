@@ -1,17 +1,13 @@
 import { WritableSignal } from "@angular/core";
 import {
-  DurationContent,
-  IndexContent,
-  SelectContent,
-  TextContent,
-  TitleContent,
-  TrackContent,
+    DurationContent, IndexContent, TextContent, TitleContent, TrackContent
 } from "@components/music-table/music-table";
+
 import { SupportedSources } from "./providerAuth";
 
 export type Track = {
-  isSelected: WritableSignal<boolean>;
   id: string;
+  isSelected: WritableSignal<boolean>;
   type: string;
   platform: SupportedSources;
   title: string;
@@ -38,8 +34,8 @@ export type TracksResponse = TrackResponse[];
 
 export type TracksTableData = {
   id: string;
+  isSelected: WritableSignal<boolean>;
   content: [
-    SelectContent,
     IndexContent,
     TitleContent,
     TextContent,

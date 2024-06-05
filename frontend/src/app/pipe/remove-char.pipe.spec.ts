@@ -1,4 +1,4 @@
-import { RemoveCharPipe } from './remove-char.pipe';
+import { RemoveCharPipe } from "./remove-char.pipe";
 
 describe('RemoveCharPipe', () => {
   it('create an instance', () => {

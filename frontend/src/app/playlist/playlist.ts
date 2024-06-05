@@ -1,10 +1,8 @@
-import { WritableSignal } from '@angular/core';
-import { Track, TrackResponse } from '@type/track';
+import { WritableSignal } from "@angular/core";
+import { Track, TrackResponse } from "@type/track";
 
-import { SupportedSources } from '../../types/providerAuth';
-import {
-    IndexContent, SelectContent, TextContent, TitleContent
-} from '../components/music-table/music-table';
+import { SupportedSources } from "../../types/providerAuth";
+import { IndexContent, TextContent, TitleContent } from "../components/music-table/music-table";
 
 export type Playlist = {
   isSelected: WritableSignal<boolean>;
@@ -35,9 +33,9 @@ export type ProvidersPlaylists = Record<SupportedSources, Playlist[]>;
 
 export type PlaylistsTableData = {
   id: string;
+  isSelected: WritableSignal<boolean>;
   link: string;
   content: [
-    SelectContent,
     IndexContent,
     TitleContent,
     TextContent,

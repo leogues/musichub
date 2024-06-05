@@ -1,4 +1,4 @@
-import { DurationInMinutesPipe } from './duration-in-minutes.pipe';
+import { DurationInMinutesPipe } from "./duration-in-minutes.pipe";
 
 describe('DurationInMinutesPipe', () => {
   it('create an instance', () => {

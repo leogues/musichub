@@ -1,9 +1,9 @@
-import { suportedProviders } from 'app/providers';
+import { suportedProviders } from "app/providers";
 
-import { computed, inject, Injectable, signal } from '@angular/core';
-import { toObservable } from '@angular/core/rxjs-interop';
-import { UserService } from '@services/user.service';
-import { ProviderAuthInfo, ProviderAuthResponse } from '@type/providerAuth';
+import { computed, inject, Injectable, signal } from "@angular/core";
+import { toObservable } from "@angular/core/rxjs-interop";
+import { UserService } from "@services/user.service";
+import { ProviderAuthInfo, ProviderAuthResponse } from "@type/providerAuth";
 
 @Injectable({
   providedIn: "root",

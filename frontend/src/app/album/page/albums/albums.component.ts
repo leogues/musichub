@@ -5,7 +5,10 @@ import { Component, computed, inject, input, signal } from "@angular/core";
 import { Router } from "@angular/router";
 import { DataInfoComponent } from "@components/data-info/data-info.component";
 import { LayoutComponent } from "@components/layout/layout.component";
-import { SelectionFilterToolbarComponent } from "@components/selection-filter-toolbar/selection-filter-toolbar.component";
+import { MusicTableService } from "@components/music-table/music-table.service";
+import {
+    SelectionFilterToolbarComponent
+} from "@components/selection-filter-toolbar/selection-filter-toolbar.component";
 
 @Component({
   selector: "app-albums",
@@ -20,6 +23,7 @@ import { SelectionFilterToolbarComponent } from "@components/selection-filter-to
 })
 export class AlbumsComponent {
   private albumsService = inject(AlbumsService);
+  private tableMusicService = inject(MusicTableService);
   platform = input("", { alias: "provider" });
   router = inject(Router);
 
@@ -77,31 +81,13 @@ export class AlbumsComponent {
       return isPlatformIncluded && isTextMatch;
     });
   });
-  protected meAlbumsFilteredCount = computed(
-    () => this.meAlbumsFiltered().length,
-  );
-  protected meAlbumsFilteredSelectedCount = computed(() =>
-    this.meAlbumsFiltered().reduce(
-      (acc, album) => (album.isSelected() ? acc + 1 : acc),
-      0,
-    ),
-  );
-
-  protected isAllSelected = computed(() => {
-    if (this.meAlbumsFilteredCount() === 0) return false;
-
-    return (
-      this.meAlbumsFilteredCount() === this.meAlbumsFilteredSelectedCount()
-    );
-  });
+  protected meAlbumsFilteredCount = this.tableMusicService.dataCount;
+  protected meAlbumsFilteredSelectedCount =
+    this.tableMusicService.dataSelectedCount;
+  protected isAllSelected = this.tableMusicService.isAllSelected;
 
   toggleSelectAllFiltered() {
-    const isAllSelected = this.isAllSelected();
-    const meAlbumsFiltered = this.meAlbumsFiltered();
-
-    meAlbumsFiltered.forEach((album) => {
-      album.isSelected.set(!isAllSelected);
-    });
+    this.tableMusicService.toggleSelectAll();
   }
 
   handleRefreshData() {

@@ -1,11 +1,4 @@
-import {
-  Component,
-  computed,
-  effect,
-  input,
-  output,
-  signal,
-} from "@angular/core";
+import { Component, computed, effect, input, output, signal } from "@angular/core";
 
 import { PopupSelectOptionComponent } from "./popup-select-option/popup-select-option.component";
 import { Source } from "./source";

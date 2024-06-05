@@ -1,8 +1,6 @@
-import { WritableSignal } from '@angular/core';
-import {
-    IndexContent, SelectContent, TextContent, TitleContent
-} from '@components/music-table/music-table';
-import { SupportedSources } from '@type/providerAuth';
+import { WritableSignal } from "@angular/core";
+import { IndexContent, TextContent, TitleContent } from "@components/music-table/music-table";
+import { SupportedSources } from "@type/providerAuth";
 
 export type Artist = {
   isSelected: WritableSignal<boolean>;
@@ -23,11 +21,6 @@ export type ProvidersArtists = Record<SupportedSources, Artist[]>;
 
 export type ArtistsTableData = {
   id: string;
-  content: [
-    SelectContent,
-    IndexContent,
-    TitleContent,
-    TextContent,
-    TextContent,
-  ];
+  isSelected: WritableSignal<boolean>;
+  content: [IndexContent, TitleContent, TextContent, TextContent];
 };

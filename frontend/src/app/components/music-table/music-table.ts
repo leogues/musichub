@@ -1,4 +1,4 @@
-import { WritableSignal } from '@angular/core';
+import { WritableSignal } from "@angular/core";
 
 export type THeader = {
   label: string;
@@ -19,11 +19,6 @@ export enum TOrderEnum {
 export type THeaderWithOrder = THeader & {
   index: number;
   order: TOrder;
-};
-
-export type SelectContent = {
-  type: "select";
-  isSelected: WritableSignal<boolean>;
 };
 
 export type IndexContent = {
@@ -71,12 +66,12 @@ export type DateContent = {
 
 export type TData = {
   id: string;
+  isSelected: WritableSignal<boolean>;
   link?: string;
   content: Content[];
 };
 
 export type Content =
-  | SelectContent
   | IndexContent
   | TitleContent
   | TextContent
@@ -86,7 +81,6 @@ export type Content =
   | DateContent;
 
 export type ContentMapKey = {
-  select: SelectContent;
   index: IndexContent;
   title: TitleContent;
   text: TextContent;
