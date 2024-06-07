@@ -1,4 +1,4 @@
-import { signal, WritableSignal } from "@angular/core";
+import { computed, Signal, signal, WritableSignal } from "@angular/core";
 
 enum Status {
   pending = "pending",
@@ -64,6 +64,12 @@ export class APIQuery<T, E extends Error[] | Error | Record<string, Error>> {
 
 export class DataQuery<T, E extends Error[] | Error | Record<string, Error>> {
   private APIQuery: APIQuery<T, E>;
+  private _isError = computed(
+    () => this.status() === Status.error || this.error() !== null,
+  );
+  private _isPending = computed(() => this.status() === Status.pending);
+  private _isSuccessful = computed(() => this.status() === Status.success);
+
   constructor(APIQuery: APIQuery<T, E>) {
     this.APIQuery = APIQuery;
   }
@@ -84,15 +90,15 @@ export class DataQuery<T, E extends Error[] | Error | Record<string, Error>> {
     return this.APIQuery.isFetching;
   }
 
-  isError(): boolean {
-    return this.status() === Status.error || this.error !== null;
+  get isPending(): Signal<boolean> {
+    return this._isPending;
   }
 
-  isPending(): boolean {
-    return this.status() === Status.pending;
+  get isError(): Signal<boolean> {
+    return this._isError;
   }
 
-  isSuccessful(): boolean {
-    return this.status() === Status.success;
+  get isSuccessful(): Signal<boolean> {
+    return this._isSuccessful;
   }
 }
