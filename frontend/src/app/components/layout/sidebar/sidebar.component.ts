@@ -1,5 +1,12 @@
 import { CommonModule } from "@angular/common";
-import { Component, computed, ElementRef, HostListener, signal, viewChild } from "@angular/core";
+import {
+  Component,
+  computed,
+  ElementRef,
+  HostListener,
+  signal,
+  viewChild,
+} from "@angular/core";
 import { cn } from "@utils/cn";
 
 import { AuthComponent } from "./auth/auth.component";
@@ -33,7 +40,6 @@ export class SiderbarComponent {
   toggleSidebar(mouseEvent: MouseEvent) {
     mouseEvent.stopPropagation();
     this.isOpen.update((isOpen) => !isOpen);
-    this.isOpen.set(false);
   }
 
   handleCloseSidebar() {
