@@ -1,3 +1,3 @@
 export const environment = {
-  baseUrl: "https://leogues.com.br/api/",
+  baseUrl: "https://music.leogues.com.br/api/",
 };
