@@ -16,6 +16,35 @@ import (
 func (s *GinServer) registerProviderAuthRoutes(r *gin.RouterGroup) {
 	r.GET("/auth/spotify", s.oAuthSpotify)
 	r.GET("/auth/spotify/callback", s.oAuthSpotifyCallback)
+	r.DELETE("/auth/platforms/:provider/logout", s.logoutProvider)
+}
+
+func (s *GinServer) logoutProvider(c *gin.Context) {
+	providerName := c.Param("provider")
+
+	ctx := c.Request.Context()
+	user := musichub.UserFromContext(ctx)
+
+	var providerToDelete *musichub.ProviderAuth
+
+	for _, provider := range user.ProviderAuths {
+		if provider.Source == providerName {
+			providerToDelete = provider
+			break
+		}
+	}
+
+	if providerToDelete == nil {
+		s.Error(c, musichub.Errorf(musichub.ENOTFOUND, "Provider not found"))
+		return
+	}
+
+	if err := s.ProviderAuthService.DeleteProviderAuth(ctx, providerToDelete.ID); err != nil {
+		s.Error(c, err)
+		return
+	}
+
+	c.JSON(http.StatusOK, gin.H{"message": "Provider logged out successfully"})
 }
 
 func (s *GinServer) oAuthSpotify(c *gin.Context) {
