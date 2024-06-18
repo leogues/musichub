@@ -95,7 +95,7 @@ export class AlbumsService {
   removeProviderAlbums(removedSources: SupportedSources[]) {
     this.meAlbumsQuery.data.update((albums) => {
       removedSources.forEach((source) => delete albums[source]);
-      return albums;
+      return { ...albums };
     });
   }
 

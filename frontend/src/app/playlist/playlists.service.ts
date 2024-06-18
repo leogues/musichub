@@ -89,11 +89,10 @@ export class PlaylistsService {
 
   removeProviderPlaylists(removedSources: SupportedSources[]) {
     this.mePlaylistsQuery.data.update((playlists) => {
-      removedSources.forEach((source) => {
-        delete playlists[source];
-      });
-      return playlists;
+      removedSources.forEach((source) => delete playlists[source]);
+      return { ...playlists };
     });
+    console.log(this.mePlaylistsQuery.data());
   }
 
   private sourcesSubscription: Subscription;

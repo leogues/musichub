@@ -83,11 +83,10 @@ export class TrackService {
   }
 
   removeProviderTracks(sources: SupportedSources[]) {
-    const tracks = this.meTracksQuery.data();
-    sources.forEach((source) => {
-      delete tracks[source];
+    this.meTracksQuery.data.update((tracks) => {
+      sources.forEach((source) => delete tracks[source]);
+      return tracks;
     });
-    this.meTracksQuery.success(tracks);
   }
 
   private sourcesSubscription: Subscription;
@@ -95,8 +94,6 @@ export class TrackService {
   constructor() {
     this.sourcesSubscription = this.authenticatedSourcesObservable.subscribe(
       (authenticatedSources) => {
-        console.log({ authenticatedSources });
-
         filterRemovedItems(
           authenticatedSources,
           this.meTracksQuery.data(),

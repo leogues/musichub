@@ -88,7 +88,7 @@ export class ArtistService {
   removeProviderAlbums(removedSources: SupportedSources[]) {
     this.meArtistsQuery.data.update((artists) => {
       removedSources.forEach((source) => delete artists[source]);
-      return artists;
+      return { ...artists };
     });
   }
 
