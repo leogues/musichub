@@ -85,7 +85,7 @@ export class TrackService {
   removeProviderTracks(sources: SupportedSources[]) {
     this.meTracksQuery.data.update((tracks) => {
       sources.forEach((source) => delete tracks[source]);
-      return tracks;
+      return { ...tracks };
     });
   }
 
