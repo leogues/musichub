@@ -92,7 +92,6 @@ export class PlaylistsService {
       removedSources.forEach((source) => delete playlists[source]);
       return { ...playlists };
     });
-    console.log(this.mePlaylistsQuery.data());
   }
 
   private sourcesSubscription: Subscription;
