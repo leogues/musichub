@@ -35,6 +35,7 @@ func (a *ProviderAuth) Validate() error {
 type ProviderAuthWriter interface {
 	CreateProviderAuth(ctx context.Context, auth *ProviderAuth) error
 	UpdateProviderAuth(ctx context.Context, id int, accessToken, refreshToken string, expiry *time.Time) (*ProviderAuth, error)
+	DeleteProviderAuth(ctx context.Context, id int) error
 }
 
 type ProviderAuthReader interface {
@@ -50,6 +51,7 @@ type ProviderAuthRepository interface {
 type ProviderAuthService interface {
 	CreateProviderAuth(ctx context.Context, auth *ProviderAuth) error
 	UpdateProviderAuth(ctx context.Context, auth *ProviderAuth) error
+	DeleteProviderAuth(ctx context.Context, id int) error
 	FindProviderAuthBySource(ctx context.Context, userID int, source string) (*ProviderAuth, error)
 }
 

@@ -10,10 +10,11 @@ import (
 var _ musichub.ProviderAuthRepository = (*ProviderAuthRepository)(nil)
 
 type ProviderAuthRepository struct {
-	CreateProviderAuthFn       func(ctx context.Context, providerAuth *musichub.ProviderAuth) error
-	UpdateProviderAuthFn       func(ctx context.Context, id int, accessToken, refreshToken string, expiry *time.Time) (*musichub.ProviderAuth, error)
-	FindProviderAuthBySourceFn func(ctx context.Context, id int) (*musichub.ProviderAuth, error)
-	AttachUserProviderAuthsFn  func(ctx context.Context, user *musichub.User) error
+	CreateProviderAuthFn         func(ctx context.Context, providerAuth *musichub.ProviderAuth) error
+	UpdateProviderAuthFn         func(ctx context.Context, id int, accessToken, refreshToken string, expiry *time.Time) (*musichub.ProviderAuth, error)
+	FindProviderAuthBySourceFn   func(ctx context.Context, id int) (*musichub.ProviderAuth, error)
+	DeleteProviderAuthBySourceFn func(ctx context.Context, id int) error
+	AttachUserProviderAuthsFn    func(ctx context.Context, user *musichub.User) error
 }
 
 func (r *ProviderAuthRepository) CreateProviderAuth(ctx context.Context, auth *musichub.ProviderAuth) error {
@@ -26,6 +27,10 @@ func (r *ProviderAuthRepository) UpdateProviderAuth(ctx context.Context, id int,
 
 func (r *ProviderAuthRepository) FindProviderAuthBySource(ctx context.Context, userId int, source string) (*musichub.ProviderAuth, error) {
 	return r.FindProviderAuthBySourceFn(ctx, userId)
+}
+
+func (r *ProviderAuthRepository) DeleteProviderAuth(ctx context.Context, id int) error {
+	return r.DeleteProviderAuthBySourceFn(ctx, id)
 }
 
 func (r *ProviderAuthRepository) AttachUserProviderAuths(ctx context.Context, user *musichub.User) error {
