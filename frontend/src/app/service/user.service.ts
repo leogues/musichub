@@ -1,4 +1,5 @@
 import { baseUrl } from "app/baseUrl";
+import axios from "axios";
 import { catchError, tap } from "rxjs";
 
 import { HttpClient } from "@angular/common/http";
@@ -48,13 +49,14 @@ export class UserService {
   }
 
   async logout() {
-    const logoutResponse = await fetch("api/auth/logout", {
-      method: "POST",
-      credentials: "include",
-    });
+    try {
+      const logoutResponse = await axios.post("api/auth/logout");
 
-    if (logoutResponse.ok) {
-      window.location.href = "/login";
+      if (logoutResponse.status === 200) {
+        window.location.href = "/login";
+      }
+    } catch (error) {
+      console.error(error);
     }
   }
 

@@ -144,6 +144,26 @@ func (r *ProviderAuthRepository) CreateProviderAuth(ctx context.Context, auth *m
 	return nil
 }
 
+func (r *ProviderAuthRepository) DeleteProviderAuth(ctx context.Context, id int) error {
+	tx, err := r.db.BeginTx(ctx)
+	if err != nil {
+		return err
+	}
+
+	if providerAuth, err := r.FindProviderAuthByID(ctx, id); err != nil {
+		return err
+	} else if providerAuth.UserID != musichub.UserIDFromContext(ctx) {
+		return musichub.Errorf(musichub.EUNAUTHORIZED, "You are not allowed to delete this provider auth.")
+	}
+
+	if _, err := tx.ExecContext(ctx, `DELETE FROM public.provider_auths WHERE id = $1`, id); err != nil {
+		return err
+	}
+
+	return nil
+
+}
+
 func (r *ProviderAuthRepository) findProviderAuths(ctx context.Context, filter musichub.ProviderAuthFilter) ([]*musichub.ProviderAuth, error) {
 	tx, err := r.db.BeginTx(ctx)
 	if err != nil {
