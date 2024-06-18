@@ -1,7 +1,8 @@
 import {
-    Component, effect, ElementRef, HostListener, input, model, viewChild
+    Component, effect, ElementRef, HostListener, inject, input, model, viewChild
 } from "@angular/core";
 import { CapitalizeFirstLetterPipe } from "@pipe/capitalize-first-letter.pipe";
+import { ProviderAuthService } from "@services/provider-auth.service";
 import { ProviderAuthResponse } from "@type/providerAuth";
 
 @Component({
@@ -11,6 +12,7 @@ import { ProviderAuthResponse } from "@type/providerAuth";
   templateUrl: "./provider-auth-popup.component.html",
 })
 export class ProviderAuthPopupComponent {
+  providerAuthService = inject(ProviderAuthService);
   isOpenPopup = model.required<boolean>();
   mouseScrollY = input.required<number>();
   popup = viewChild<ElementRef<HTMLDivElement>>("popup");
@@ -27,6 +29,13 @@ export class ProviderAuthPopupComponent {
         popupElement.style.top = `${this.mouseScrollY()}px`;
       }
     });
+  }
+
+  async handleDisconnectProvider() {
+    const isLogout = await this.providerAuthService.logoutProviderAuth(
+      this.providerAuth()!,
+    );
+    if (isLogout) this.handleClosePopover();
   }
 
   @HostListener("document:click", ["$event"]) onClick(event: MouseEvent) {
