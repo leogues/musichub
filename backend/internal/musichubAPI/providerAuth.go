@@ -73,3 +73,16 @@ func (s *ProviderAuthService) CreateProviderAuth(ctx context.Context, providerAu
 
 	return s.tx.Commit(ctx)
 }
+
+func (s *ProviderAuthService) DeleteProviderAuth(ctx context.Context, id int) error {
+	if err := s.tx.Begin(&ctx); err != nil {
+		return err
+	}
+	defer s.tx.Rollback(ctx)
+
+	if err := s.providerAuthRepository.DeleteProviderAuth(ctx, id); err != nil {
+		return err
+	}
+
+	return s.tx.Commit(ctx)
+}
