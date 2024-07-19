@@ -2,8 +2,9 @@ import { baseUrl } from "app/baseUrl";
 import { catchError, map, tap } from "rxjs";
 
 import { HttpClient } from "@angular/common/http";
-import { inject, Injectable, signal } from "@angular/core";
+import { inject, Injectable } from "@angular/core";
 import { APIQuery, DataQuery } from "@services/APIQuery";
+import { addPropertyIsSelected } from "@utils/filter";
 
 import { AlbumResponseWithTracks, AlbumWithTracks } from "./album";
 
@@ -27,12 +28,7 @@ export class AlbumService {
       .get<AlbumResponseWithTracks>(baseUrl + urlRequest)
       .pipe(
         map((album) => {
-          album.tracks = album.tracks.map((track) => {
-            return {
-              ...track,
-              isSelected: signal(false),
-            };
-          });
+          album.tracks = addPropertyIsSelected(album.tracks);
           return album as AlbumWithTracks;
         }),
         tap((album) => {

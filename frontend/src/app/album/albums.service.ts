@@ -2,11 +2,11 @@ import { baseUrl } from "app/baseUrl";
 import { catchError, forkJoin, map, Observable, Subscription, tap } from "rxjs";
 
 import { HttpClient } from "@angular/common/http";
-import { inject, Injectable, signal } from "@angular/core";
+import { inject, Injectable } from "@angular/core";
 import { APIQuery, DataQuery } from "@services/APIQuery";
 import { ProviderAuthService } from "@services/provider-auth.service";
 import { SupportedSources } from "@type/providerAuth";
-import { filterAddedItems, filterRemovedItems } from "@utils/filter";
+import { addPropertyIsSelected, filterAddedItems, filterRemovedItems } from "@utils/filter";
 
 import { Album, AlbumsResponse, ProvidersAlbums } from "./album";
 
@@ -48,14 +48,7 @@ export class AlbumsService {
     const requests = urls.reduce(
       (acc, { source, url }) => {
         acc[source] = this.http.get<AlbumsResponse>(url).pipe(
-          map((albumsResponse) =>
-            albumsResponse.map((album) => {
-              return {
-                ...album,
-                isSelected: signal(false),
-              };
-            }),
-          ),
+          map((albumsResponse) => addPropertyIsSelected(albumsResponse)),
           catchError((err) => {
             const error = {} as Record<SupportedSources, Error>;
             error[source] = err;

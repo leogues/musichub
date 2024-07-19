@@ -1,3 +1,5 @@
+import { signal, WritableSignal } from "@angular/core";
+
 export const filterRemovedItems = <T extends string>(
   array: T[],
   obj: Record<T, any>,
@@ -18,4 +20,13 @@ export const filterAddedItems = <T extends string>(
   const addedItems = array.filter((item) => !Object.keys(obj).includes(item));
   if (addedItems.length === 0) return;
   callback(addedItems as T[]);
+};
+
+export const addPropertyIsSelected = <T extends object>(
+  items: T[],
+): (T & { isSelected: WritableSignal<boolean> })[] => {
+  return items.map((item) => ({
+    ...item,
+    isSelected: signal(false),
+  }));
 };

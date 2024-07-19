@@ -6,9 +6,7 @@ import { Router } from "@angular/router";
 import { DataInfoComponent } from "@components/data-info/data-info.component";
 import { LayoutComponent } from "@components/layout/layout.component";
 import { MusicTableService } from "@components/music-table/music-table.service";
-import {
-    SelectionFilterToolbarComponent
-} from "@components/selection-filter-toolbar/selection-filter-toolbar.component";
+import { SelectionFilterToolbarComponent } from "@components/selection-filter-toolbar/selection-filter-toolbar.component";
 
 @Component({
   selector: "app-albums",
@@ -71,7 +69,7 @@ export class AlbumsComponent {
     const areAllOptionsSelected =
       optionsFilter.length === optionsToFilter.length;
 
-    if (!isTextEmpty && areAllOptionsSelected) return this.meAlbumsData();
+    if (isTextEmpty && areAllOptionsSelected) return this.meAlbumsData();
 
     return this.meAlbumsData().filter((album) => {
       const isPlatformIncluded = optionsFilter.includes(album.platform);

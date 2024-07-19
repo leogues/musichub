@@ -1,5 +1,6 @@
 <app-layout title="Artista" (refreshData)="handleRefreshData()">
   <app-data-info
+    [isLoading]="meArtists.isFetching()"
     [total]="meArtistsCount()"
     [filteredCount]="meArtistsFilteredCount()"
     [selectedCount]="selectedMeArtistsCount()"

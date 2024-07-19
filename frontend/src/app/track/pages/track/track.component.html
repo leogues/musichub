@@ -1,6 +1,7 @@
 <app-layout title="Músicas" (refreshData)="handleRefreshData()">
   <app-music-player [tracks]="meTracksData()" />
   <app-data-info
+    [isLoading]="meTracks.isFetching()"
     [total]="meTracksCount()"
     [filteredCount]="meTracksFilteredCount()"
     [selectedCount]="meTracksFilteredSelectedCount()"
