@@ -18,8 +18,7 @@ export class ProviderAuthService {
   authenticatingProviders = signal<ProviderAuthResponse[]>([]);
   authenticatedProviders = computed(() => {
     if (!this.user()?.provider_auths) return [];
-    //@ts-ignore
-    return this.user().provider_auths;
+    return this.user()!.provider_auths;
   });
   authenticatedProvidersSources = computed(() => {
     return this.authenticatedProviders().map((auth) => auth.source);

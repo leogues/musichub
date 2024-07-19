@@ -2,8 +2,9 @@ import { baseUrl } from "app/baseUrl";
 import { catchError, map, tap } from "rxjs";
 
 import { HttpClient } from "@angular/common/http";
-import { inject, Injectable, signal } from "@angular/core";
+import { inject, Injectable } from "@angular/core";
 import { APIQuery, DataQuery } from "@services/APIQuery";
+import { addPropertyIsSelected } from "@utils/filter";
 
 import { PlaylistResponseWithTracks, PlaylistWithTracks } from "./playlist";
 
@@ -28,12 +29,7 @@ export class PlaylistService {
       .get<PlaylistResponseWithTracks>(baseUrl + urlRequest)
       .pipe(
         map((playlist) => {
-          playlist.tracks = playlist.tracks.map((track) => {
-            return {
-              ...track,
-              isSelected: signal(false),
-            };
-          });
+          playlist.tracks = addPropertyIsSelected(playlist.tracks);
           return playlist as PlaylistWithTracks;
         }),
         tap((playlist) => {

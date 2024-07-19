@@ -2,12 +2,12 @@ import { baseUrl } from "app/baseUrl";
 import { catchError, forkJoin, map, Observable, Subscription, tap } from "rxjs";
 
 import { HttpClient } from "@angular/common/http";
-import { inject, Injectable, signal } from "@angular/core";
+import { inject, Injectable } from "@angular/core";
 import { APIQuery, DataQuery } from "@services/APIQuery";
 import { ProviderAuthService } from "@services/provider-auth.service";
 import { SupportedSources } from "@type/providerAuth";
 import { Track, TracksResponse } from "@type/track";
-import { filterAddedItems, filterRemovedItems } from "@utils/filter";
+import { addPropertyIsSelected, filterAddedItems, filterRemovedItems } from "@utils/filter";
 
 import { ProvidersTracks } from "./track";
 
@@ -44,16 +44,9 @@ export class TrackService {
     });
     const requests = urls.reduce(
       (acc, { url, source }) => {
-        acc[source] = this.http.get<TracksResponse>(url).pipe(
-          map((TracksReponse) =>
-            TracksReponse.map((track) => {
-              return {
-                ...track,
-                isSelected: signal(false),
-              };
-            }),
-          ),
-        );
+        acc[source] = this.http
+          .get<TracksResponse>(url)
+          .pipe(map((TracksReponse) => addPropertyIsSelected(TracksReponse)));
         return acc;
       },
       {} as Record<SupportedSources, Observable<Track[]>>,
