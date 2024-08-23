@@ -13,6 +13,10 @@ import (
 
 var _ musichub.AuthRepository = (*AuthRepository)(nil)
 
+func test(str *string) {
+	fmt.Println(str)
+}
+
 type AuthRepository struct {
 	db *DB
 }
