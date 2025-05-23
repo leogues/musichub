@@ -70,7 +70,7 @@ func (r *ProviderAuthRepository) UpdateProviderAuth(ctx context.Context, id int,
 	}
 
 	if _, err := tx.ExecContext(ctx, `
-		UPDATE public.provider_auths
+		UPDATE provider_auths
 		SET access_token = $1,
 		    refresh_token = $2,
 		    expiry = $3,
@@ -108,7 +108,7 @@ func (r *ProviderAuthRepository) CreateProviderAuth(ctx context.Context, auth *m
 	}
 
 	result := tx.QueryRowContext(ctx, `
-		INSERT INTO public.provider_auths (
+		INSERT INTO provider_auths (
 			user_id,
 			source,
 			access_token,
@@ -156,7 +156,7 @@ func (r *ProviderAuthRepository) DeleteProviderAuth(ctx context.Context, id int)
 		return musichub.Errorf(musichub.EUNAUTHORIZED, "You are not allowed to delete this provider auth.")
 	}
 
-	if _, err := tx.ExecContext(ctx, `DELETE FROM public.provider_auths WHERE id = $1`, id); err != nil {
+	if _, err := tx.ExecContext(ctx, `DELETE FROM provider_auths WHERE id = $1`, id); err != nil {
 		return err
 	}
 
@@ -196,7 +196,7 @@ func (r *ProviderAuthRepository) findProviderAuths(ctx context.Context, filter m
 				expiry,
 				created_at,
 				updated_at
-		FROM public.provider_auths
+		FROM provider_auths
 		WHERE `+strings.Join(where, " AND ")+`
 		ORDER BY id ASC`,
 		args...,
