@@ -68,7 +68,7 @@ func (r *UserRepository) CreateUser(ctx context.Context, user *musichub.User) er
 	user.APIKey = hex.EncodeToString(apiKey)
 
 	result := tx.QueryRowContext(ctx, `
-		INSERT INTO public.users (
+		INSERT INTO users (
 			name,
 			email,
 			api_key,
@@ -131,7 +131,7 @@ func (r *UserRepository) FindUsers(ctx context.Context, filter musichub.UserFilt
 		    created_at,
 		    updated_at,
 				COUNT(*) OVER()
-		FROM public.users
+		FROM users
 		WHERE `+strings.Join(where, " AND ")+`
 		ORDER BY id ASC
 		`+FormatLimitOffset(filter.Limit, filter.Offset),

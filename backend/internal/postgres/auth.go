@@ -73,7 +73,7 @@ func (r *AuthRepository) UpdateAuth(ctx context.Context, id int, accessToken, re
 	}
 
 	if _, err := tx.ExecContext(ctx, `
-		UPDATE public.auths
+		UPDATE auths
 		SET access_token = $1,
 		    refresh_token = $2,
 		    expiry = $3,
@@ -112,7 +112,7 @@ func (r *AuthRepository) CreateAuth(ctx context.Context, auth *musichub.Auth) er
 	}
 
 	result := tx.QueryRowContext(ctx, `
-		INSERT INTO public.auths (
+		INSERT INTO auths (
 			user_id,
 			source,
 			source_id,
@@ -184,7 +184,7 @@ func (r *AuthRepository) findAuths(ctx context.Context, filter musichub.AuthFilt
 				expiry,
 				created_at,
 				updated_at
-		FROM public.auths
+		FROM auths
 		WHERE `+strings.Join(where, " AND ")+`
 		ORDER BY id ASC`,
 		args...,
