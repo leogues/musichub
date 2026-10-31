@@ -4,6 +4,7 @@ import (
 	"context"
 	"encoding/json"
 	"io"
+	"net"
 	"net/http"
 	"testing"
 
@@ -71,8 +72,12 @@ func MustOpenServer(tb testing.TB) *Server {
 		tb.Fatalf("failed to start server: %v", err)
 	}
 
+	listener, err := net.Listen("tcp", s.Addr)
+	if err != nil {
+		tb.Fatal(err)
+	}
 	go func() {
-		if err := s.ListenAndServe(); err != nil {
+		if err := s.Serve(listener); err != nil {
 			if err.Error() != "http: Server closed" {
 				tb.Fatal(err)
 			}

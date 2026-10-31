@@ -2,7 +2,7 @@ package middleware
 
 import (
 	"context"
-	"log"
+	"log/slog"
 	"strings"
 
 	"github.com/gin-gonic/gin"
@@ -28,7 +28,7 @@ func (m *Middleware) Authenticate() gin.HandlerFunc {
 		ctx := c.Request.Context()
 		if bearear := c.GetHeader("Authorization"); strings.HasPrefix(bearear, "Bearer ") {
 			if ok, err := m.authenticateWithBeared(ctx, c, bearear); err != nil {
-				log.Printf("cannot authenticate with bearer: %s", err)
+				slog.WarnContext(ctx, "Cannot authenticate with bearer", "error", err)
 			} else if ok {
 				c.Next()
 				return
@@ -39,7 +39,7 @@ func (m *Middleware) Authenticate() gin.HandlerFunc {
 
 		if session.UserID != 0 {
 			if user, err := m.UserService.FindUserByID(ctx, session.UserID); err != nil {
-				log.Printf("cannot find session user: id=%d err=%s", session.UserID, err)
+				slog.WarnContext(ctx, "Cannot find session user", "error", err)
 			} else {
 				c.Request = c.Request.WithContext(musichub.NewContextWithUser(ctx, user))
 			}

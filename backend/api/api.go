@@ -1,15 +1,16 @@
 package api
 
 import (
+	"context"
 	"encoding/json"
 	"errors"
 	"io"
-	"log"
+	"log/slog"
 	"net/http"
 )
 
-func makeRequest(url string, header http.Header) (*http.Response, error) {
-	req, err := http.NewRequest("GET", url, nil)
+func makeRequest(ctx context.Context, url string, header http.Header) (*http.Response, error) {
+	req, err := http.NewRequestWithContext(ctx, "GET", url, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -24,7 +25,7 @@ func makeRequest(url string, header http.Header) (*http.Response, error) {
 	return response, nil
 }
 
-func handleResponse(response *http.Response) ([]byte, error) {
+func handleResponse(ctx context.Context, response *http.Response) ([]byte, error) {
 	defer response.Body.Close()
 
 	body, err := io.ReadAll(response.Body)
@@ -33,7 +34,7 @@ func handleResponse(response *http.Response) ([]byte, error) {
 	}
 
 	if response.StatusCode != http.StatusOK {
-		log.Print("Erro na solicitação: " + string(body))
+		slog.ErrorContext(ctx, "Upstream request failed", "http.response.status_code", response.StatusCode)
 		return nil, errors.New("Erro na solicitação: " + string(body))
 	}
 
@@ -50,14 +51,14 @@ func parseResponse[T any](body []byte) (T, error) {
 	return result, nil
 }
 
-func MakeAPIRequest[T any](url string, header http.Header) (T, error) {
+func MakeAPIRequest[T any](ctx context.Context, url string, header http.Header) (T, error) {
 
-	response, err := makeRequest(url, header)
+	response, err := makeRequest(ctx, url, header)
 	if err != nil {
 		return *new(T), err
 	}
 
-	body, err := handleResponse(response)
+	body, err := handleResponse(ctx, response)
 	if err != nil {
 		return *new(T), err
 	}

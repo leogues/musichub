@@ -75,7 +75,7 @@ func (s *GinServer) oAuthGoogleCallback(c *gin.Context) {
 
 	client := strategy.NewClientGoogle(token)
 
-	user, err := client.GoogleUserInfo()
+	user, err := client.GoogleUserInfo(c.Request.Context())
 
 	if err != nil {
 		s.Error(c, fmt.Errorf("cannot fetch user info: %s", err))

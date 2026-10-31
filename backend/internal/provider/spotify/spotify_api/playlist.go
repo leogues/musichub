@@ -21,12 +21,12 @@ func NewPlaylistService(token string) *PlaylistService {
 	}
 }
 
-func (s *PlaylistService) FindMePlaylists(_ context.Context) ([]*musichub.Playlist, error) {
+func (s *PlaylistService) FindMePlaylists(ctx context.Context) ([]*musichub.Playlist, error) {
 	url := baseUrl + "/me/playlists"
 
 	header := s.SpotifyApi.createAuthHeader()
 
-	result, err := api.MakeAPIRequest[spotify.MePlaylistsResponse](url, header)
+	result, err := api.MakeAPIRequest[spotify.MePlaylistsResponse](ctx, url, header)
 
 	if err != nil {
 		return nil, err
@@ -37,12 +37,12 @@ func (s *PlaylistService) FindMePlaylists(_ context.Context) ([]*musichub.Playli
 	return playlists, nil
 }
 
-func (s *PlaylistService) FindPlaylistByID(_ context.Context, id string) (*musichub.Playlist, error) {
+func (s *PlaylistService) FindPlaylistByID(ctx context.Context, id string) (*musichub.Playlist, error) {
 	url := baseUrl + "/playlists/" + id
 
 	header := s.SpotifyApi.createAuthHeader()
 
-	result, err := api.MakeAPIRequest[spotify.PlaylistResponse](url, header)
+	result, err := api.MakeAPIRequest[spotify.PlaylistResponse](ctx, url, header)
 
 	if err != nil {
 		return nil, err

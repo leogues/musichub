@@ -1,11 +1,12 @@
 package httpError
 
 import (
-	"log"
+	"log/slog"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
 	musichub "github.com/leogues/MusicSyncHub"
+	"go.opentelemetry.io/otel/trace"
 )
 
 func NewErrorHandler() func(c *gin.Context, err error) {
@@ -24,6 +25,7 @@ var codes = map[string]int{
 func Error(c *gin.Context, err error) {
 	code, message := musichub.ErrorCode(err), musichub.ErrorMessage(err)
 	if code == musichub.EINTERNAL {
+		trace.SpanFromContext(c.Request.Context()).RecordError(err)
 		musichub.ReportError(c.Request.Context(), err, c)
 		LogError(c, err)
 	}
@@ -39,5 +41,5 @@ func ErrorStatusCode(code string) int {
 }
 
 func LogError(c *gin.Context, err error) {
-	log.Printf("[http] error: %s %s: %s ", c.Request.Method, c.Request.URL.Path, err)
+	slog.ErrorContext(c.Request.Context(), "HTTP request failed", "http.request.method", c.Request.Method, "http.route", c.FullPath(), "error", err)
 }

@@ -21,12 +21,12 @@ func NewAlbumService(token string) *AlbumService {
 	}
 }
 
-func (s *AlbumService) FindMeAlbums(_ context.Context) ([]*musichub.Album, error) {
+func (s *AlbumService) FindMeAlbums(ctx context.Context) ([]*musichub.Album, error) {
 	url := baseUrl + "/me/albums"
 
 	header := s.spotifyApi.createAuthHeader()
 
-	result, err := api.MakeAPIRequest[spotify.MeAlbumsResponse](url, header)
+	result, err := api.MakeAPIRequest[spotify.MeAlbumsResponse](ctx, url, header)
 
 	if err != nil {
 		return nil, err
@@ -37,12 +37,12 @@ func (s *AlbumService) FindMeAlbums(_ context.Context) ([]*musichub.Album, error
 	return albums, nil
 }
 
-func (s *AlbumService) FindAlbumByID(_ context.Context, id string) (*musichub.Album, error) {
+func (s *AlbumService) FindAlbumByID(ctx context.Context, id string) (*musichub.Album, error) {
 	url := baseUrl + "/albums/" + id
 
 	header := s.spotifyApi.createAuthHeader()
 
-	result, err := api.MakeAPIRequest[spotify.AlbumResponse](url, header)
+	result, err := api.MakeAPIRequest[spotify.AlbumResponse](ctx, url, header)
 
 	if err != nil {
 		return nil, err

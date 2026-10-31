@@ -21,12 +21,12 @@ func NewArtistService(token string) *ArtistService {
 	}
 }
 
-func (s *ArtistService) FindMeArtists(_ context.Context) ([]*musichub.Artist, error) {
+func (s *ArtistService) FindMeArtists(ctx context.Context) ([]*musichub.Artist, error) {
 	url := baseUrl + "/me/following?type=artist"
 
 	header := s.spotifyApi.createAuthHeader()
 
-	result, err := api.MakeAPIRequest[spotify.MeArtistsResponse](url, header)
+	result, err := api.MakeAPIRequest[spotify.MeArtistsResponse](ctx, url, header)
 
 	if err != nil {
 		return nil, err

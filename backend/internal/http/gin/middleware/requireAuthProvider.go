@@ -3,7 +3,7 @@ package middleware
 import (
 	"context"
 	"fmt"
-	"log"
+	"log/slog"
 	"time"
 
 	"github.com/gin-gonic/gin"
@@ -33,8 +33,8 @@ func (m *Middleware) tokenExchange(ctx context.Context, providerAuth *musichub.P
 	providerAuth.Expiry = &newToken.Expiry
 
 	go func() {
-		if err := m.ProviderAuthService.UpdateProviderAuth(context.Background(), providerAuth); err != nil {
-			log.Printf("cannot update provider auth: %s", err)
+		if err := m.ProviderAuthService.UpdateProviderAuth(context.WithoutCancel(ctx), providerAuth); err != nil {
+			slog.ErrorContext(ctx, "Cannot update provider auth", "error", err)
 		}
 	}()
 

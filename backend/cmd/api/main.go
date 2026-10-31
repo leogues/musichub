@@ -1,15 +1,22 @@
 package main
 
 import (
+	"context"
+	"errors"
 	"fmt"
-	"log"
+	"log/slog"
+	"net/http"
 	"os"
+	"os/signal"
+	"syscall"
+	"time"
 
 	"github.com/leogues/MusicSyncHub/internal/http/gin"
 	musichubapi "github.com/leogues/MusicSyncHub/internal/musichubAPI"
 	"github.com/leogues/MusicSyncHub/internal/postgres"
 	"github.com/leogues/MusicSyncHub/internal/provider"
 	"github.com/leogues/MusicSyncHub/internal/sql"
+	"github.com/leogues/MusicSyncHub/internal/telemetry"
 )
 
 type Main struct {
@@ -27,26 +34,39 @@ func NewMain() *Main {
 }
 
 func main() {
-	// if os.Getenv("LOAD_ENV_FILE") == "true" {
-	// 	if err := godotenv.Load(); err != nil {
-	// 		panic(fmt.Errorf("ENV_FILE: %w", err))
-	// 	}
-	// }
-
-	main := NewMain()
-
-	if err := main.Run(); err != nil {
-		log.Fatal("error running api", err)
+	if err := run(); err != nil {
+		fmt.Fprintln(os.Stderr, err)
 		os.Exit(1)
 	}
 }
 
-func (m *Main) Run() error {
+func run() (err error) {
+	ctx, stop := signal.NotifyContext(context.Background(), syscall.SIGINT, syscall.SIGTERM)
+	defer stop()
+	shutdown, err := telemetry.Setup(ctx)
+	if err != nil {
+		return fmt.Errorf("telemetry: %w", err)
+	}
+	defer func() {
+		flushCtx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
+		defer cancel()
+		err = errors.Join(err, shutdown(flushCtx))
+	}()
+	if err := NewMain().Run(ctx); err != nil {
+		slog.ErrorContext(ctx, "API stopped", "error", err)
+		return err
+	}
+	return nil
+}
+
+func (m *Main) Run(ctx context.Context) error {
 	m.DB.DatasourceName = m.Config.DB.DatasourceName
 
 	if err := m.DB.Open(); err != nil {
-		panic(fmt.Errorf("database: %w", err))
+		return fmt.Errorf("database: %w", err)
 	}
+
+	defer m.DB.Close()
 
 	sqlDB := m.DB.SqlDB()
 	transactionManager := sql.NewTransaction(sqlDB)
@@ -87,14 +107,24 @@ func (m *Main) Run() error {
 	server, err := m.HTTPServer.Start()
 
 	if err != nil {
-		log.Fatal("error starting server", err)
+		return fmt.Errorf("start server: %w", err)
 	}
-
-	if err := server.ListenAndServe(); err != nil {
+	serveErrors := make(chan error, 1)
+	go func() { serveErrors <- server.ListenAndServe() }()
+	slog.InfoContext(ctx, "Server started", "port", 8080)
+	select {
+	case err := <-serveErrors:
+		if errors.Is(err, http.ErrServerClosed) {
+			return nil
+		}
 		return err
+	case <-ctx.Done():
+		slog.Info("Server shutting down")
+		shutdownCtx, cancel := context.WithTimeout(context.Background(), 20*time.Second)
+		defer cancel()
+		return server.Shutdown(shutdownCtx)
 	}
 
-	return nil
 }
 
 type HTTP struct {

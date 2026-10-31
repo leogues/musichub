@@ -12,6 +12,8 @@ import (
 	"github.com/leogues/MusicSyncHub/internal/http/gin/session"
 	"github.com/leogues/MusicSyncHub/internal/http/gin/strategy"
 	"github.com/leogues/MusicSyncHub/internal/provider"
+	"github.com/leogues/MusicSyncHub/internal/telemetry"
+	"go.opentelemetry.io/contrib/instrumentation/github.com/gin-gonic/gin/otelgin"
 )
 
 const ShutdownTimeout = 1 * time.Second
@@ -76,8 +78,11 @@ func (s *GinServer) Start() (*http.Server, error) {
 
 	s.configureMiddleware()
 
-	r := gin.Default()
+	r := gin.New()
+	r.Use(otelgin.Middleware("", otelgin.WithFilter(func(r *http.Request) bool { return r.URL.Path != "/healthz" })))
+	r.Use(telemetry.HTTPLogs())
 	r.Use(s.middlware.ReportPanic())
+	r.GET("/healthz", func(c *gin.Context) { c.String(http.StatusOK, "ok") })
 	r = s.configureHandlers(r)
 
 	s.server = &http.Server{

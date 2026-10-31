@@ -10,14 +10,18 @@ import (
 	"sort"
 	"time"
 
+	"github.com/XSAM/otelsql"
 	musichub "github.com/leogues/MusicSyncHub"
 	_ "github.com/lib/pq"
+	"go.opentelemetry.io/otel/attribute"
+	"go.opentelemetry.io/otel/metric"
 )
 
 type DB struct {
-	db     *sql.DB
-	ctx    context.Context
-	cancel func()
+	db                  *sql.DB
+	metricsRegistration metric.Registration
+	ctx                 context.Context
+	cancel              func()
 
 	DatasourceName string
 
@@ -47,7 +51,15 @@ func (db *DB) Open() (err error) {
 		return fmt.Errorf("missing datasource name")
 	}
 
-	if db.db, err = sql.Open("postgres", db.DatasourceName); err != nil {
+	options := []otelsql.Option{
+		otelsql.WithAttributes(attribute.String("db.system.name", "postgresql")),
+		otelsql.WithSpanOptions(otelsql.SpanOptions{DisableQuery: true}),
+	}
+	if db.db, err = otelsql.Open("postgres", db.DatasourceName, options...); err != nil {
+		return err
+	}
+	if db.metricsRegistration, err = otelsql.RegisterDBStatsMetrics(db.db, options...); err != nil {
+		db.db.Close()
 		return err
 	}
 
@@ -64,6 +76,9 @@ func (db *DB) Open() (err error) {
 
 func (db *DB) Close() error {
 	db.cancel()
+	if db.metricsRegistration != nil {
+		db.metricsRegistration.Unregister()
+	}
 
 	if db.db != nil {
 		db.db.Close()

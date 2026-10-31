@@ -1,6 +1,7 @@
 package strategy
 
 import (
+	"context"
 	"net/http"
 
 	"github.com/leogues/MusicSyncHub/api"
@@ -41,13 +42,13 @@ func OAuth2GoogleConfig(GoogleClientID string, GoogleClientSecret string) *oauth
 	}
 }
 
-func (client *clientGoogle) GoogleUserInfo() (*UserInfo, error) {
+func (client *clientGoogle) GoogleUserInfo(ctx context.Context) (*UserInfo, error) {
 	url := googleBaseUrl + "/userinfo"
 
 	header := http.Header{}
 	header.Add("Authorization", "Bearer "+client.token.AccessToken)
 
-	userInfo, err := api.MakeAPIRequest[*UserInfo](url, header)
+	userInfo, err := api.MakeAPIRequest[*UserInfo](ctx, url, header)
 
 	if err != nil {
 		return nil, err

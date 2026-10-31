@@ -21,12 +21,12 @@ func NewTrackService(token string) *TrackService {
 	}
 }
 
-func (s *TrackService) FindMeTracks(_ context.Context) ([]*musichub.Track, error) {
+func (s *TrackService) FindMeTracks(ctx context.Context) ([]*musichub.Track, error) {
 	url := baseUrl + "/me/tracks"
 
 	header := s.spotifyApi.createAuthHeader()
 
-	result, err := api.MakeAPIRequest[spotify.MeTracksResponse](url, header)
+	result, err := api.MakeAPIRequest[spotify.MeTracksResponse](ctx, url, header)
 
 	if err != nil {
 		return nil, err
